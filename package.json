@@ -1,0 +1,30 @@
+{
+  "name": "d2c",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "A Claude Code skill that manages the full UI component lifecycle across Figma, Storybook, Playwright, and a Variant Authority registry.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "validate": "vitest run && tsc --noEmit"
+  },
+  "dependencies": {
+    "component-contracts": "file:../component-contracts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "class-variance-authority": "^0.7.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

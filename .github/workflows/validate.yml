@@ -1,0 +1,41 @@
+name: Validate
+
+on:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Check status registry
+        run: |
+          if [ -f .d2c/status-registry.json ]; then
+            node --input-type=module -e "
+              import { readFileSync } from 'node:fs';
+              const registry = JSON.parse(readFileSync('.d2c/status-registry.json', 'utf-8'));
+              const blocked = Object.entries(registry.components || {})
+                .filter(([_, v]) => v.status === 'blocked');
+              if (blocked.length > 0) {
+                console.error('Blocked components:', blocked.map(([k]) => k).join(', '));
+                process.exit(1);
+              }
+              console.log('No blocked components.');
+            "
+          else
+            echo "No status registry found — skipping check."
+          fi

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": true,
+    "jsx": "react-jsx",
+    "types": ["node"]
+  },
+  "include": [
+    ".claude/skills/d2c/schemas/**/*.ts",
+    ".claude/skills/d2c/config/**/*.ts",
+    "demo/**/*.ts",
+    "demo/**/*.tsx",
+    "tests/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
