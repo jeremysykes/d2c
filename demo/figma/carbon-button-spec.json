@@ -1,0 +1,42 @@
+{
+  "component": "Button",
+  "source": "figma",
+  "fileKey": "LIVjw0uC7eSnQAeOETXiv0",
+  "nodeId": "1854:1776",
+  "fileName": "(v11) Carbon Design System (Community) - Copy",
+  "componentKey": "cc8b558dc7d9684011b6b99ce8e6509399bc836b",
+  "description": "Buttons are used to initialize an action. Button labels express what action will occur when the user interacts with it.",
+  "documentationUrl": "https://www.carbondesignsystem.com/components/button/usage",
+  "lastUpdated": "2025-11-19T12:18:11Z",
+  "variants": {
+    "Style": {
+      "values": ["Primary", "Secondary", "Tertiary", "Ghost", "Danger primary", "Danger tertiary", "Danger ghost"],
+      "type": "VARIANT"
+    },
+    "Size": {
+      "values": ["Extra small", "Small", "Medium", "Large", "Extra large", "Expressive", "2X large"],
+      "type": "VARIANT"
+    },
+    "Type": {
+      "values": ["Text + Icon", "Icon only"],
+      "type": "VARIANT"
+    },
+    "State": {
+      "values": ["Enabled", "Hover", "Active", "Focus", "Disabled", "Skeleton"],
+      "type": "VARIANT"
+    }
+  },
+  "tokens": {
+    "button-primary": "#0f62fe",
+    "text-on-color": "#ffffff",
+    "icon-on-color": "#ffffff",
+    "body-compact-01": {
+      "fontFamily": "IBM Plex Sans",
+      "fontWeight": 400,
+      "fontSize": "14px",
+      "lineHeight": "18px",
+      "letterSpacing": "0.16px"
+    }
+  },
+  "extractedAt": "2026-04-01T00:00:00.000Z"
+}

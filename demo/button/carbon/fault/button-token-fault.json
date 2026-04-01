@@ -1,0 +1,172 @@
+{
+  "color": {
+    "button": {
+      "primary": {
+        "background": {
+          "$type": "color",
+          "$value": "#0a52d6"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#0043ce"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#002d9c"
+        }
+      },
+      "secondary": {
+        "background": {
+          "$type": "color",
+          "$value": "#393939"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#474747"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#6f6f6f"
+        }
+      },
+      "tertiary": {
+        "background": {
+          "$type": "color",
+          "$value": "transparent"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#0353e9"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#002d9c"
+        }
+      },
+      "ghost": {
+        "background": {
+          "$type": "color",
+          "$value": "transparent"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#e8e8e8"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#c6c6c6"
+        }
+      },
+      "danger": {
+        "background": {
+          "$type": "color",
+          "$value": "#da1e28"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#ba1b23"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#750e13"
+        }
+      },
+      "disabled": {
+        "background": {
+          "$type": "color",
+          "$value": "#c6c6c6"
+        }
+      }
+    },
+    "text": {
+      "on-color": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "on-color-disabled": {
+        "$type": "color",
+        "$value": "#8d8d8d"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#161616"
+      },
+      "interactive": {
+        "$type": "color",
+        "$value": "#0f62fe"
+      }
+    },
+    "border": {
+      "interactive": {
+        "$type": "color",
+        "$value": "#0f62fe"
+      }
+    }
+  },
+  "spacing": {
+    "button": {
+      "height": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "40px"
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "48px"
+        },
+        "xl": {
+          "$type": "dimension",
+          "$value": "64px"
+        },
+        "2xl": {
+          "$type": "dimension",
+          "$value": "80px"
+        }
+      },
+      "padding": {
+        "horizontal": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "icon-only": {
+          "$type": "dimension",
+          "$value": "16px"
+        }
+      },
+      "icon": {
+        "size": {
+          "$type": "dimension",
+          "$value": "16px"
+        }
+      }
+    }
+  },
+  "typography": {
+    "button": {
+      "font-family": {
+        "$type": "fontFamily",
+        "$value": "IBM Plex Sans"
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "font-weight": {
+        "$type": "number",
+        "$value": 400
+      },
+      "line-height": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0.16px"
+      }
+    }
+  }
+}

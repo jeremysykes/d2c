@@ -1,0 +1,107 @@
+{
+  "component": "Button",
+  "version": "0.1.0",
+  "figmaFileKey": "LIVjw0uC7eSnQAeOETXiv0",
+  "figmaNodeId": "1854:1776",
+  "variants": {
+    "kind": {
+      "values": ["primary", "secondary", "tertiary", "ghost", "danger-primary", "danger-tertiary", "danger-ghost"],
+      "defaultValue": "primary",
+      "type": "string",
+      "description": "Visual style variant of the button"
+    },
+    "size": {
+      "values": ["sm", "md", "lg", "xl", "2xl"],
+      "defaultValue": "lg",
+      "type": "string",
+      "description": "Button size — controls height and padding"
+    },
+    "type": {
+      "values": ["default", "icon-only"],
+      "defaultValue": "default",
+      "type": "string",
+      "description": "Button type — text with optional icon, or icon only"
+    },
+    "disabled": {
+      "values": ["true", "false"],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Whether the button is disabled"
+    }
+  },
+  "slots": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Button text content"
+    },
+    {
+      "name": "icon",
+      "required": false,
+      "description": "Optional icon element, displayed trailing (right) in default type, centered in icon-only type"
+    }
+  ],
+  "tokens": {
+    "color.button.primary.background": {
+      "figmaValue": "#0f62fe",
+      "codeValue": "#0f62fe",
+      "dtcgPath": "color.button.primary.background",
+      "category": "color"
+    },
+    "color.button.secondary.background": {
+      "figmaValue": "#393939",
+      "codeValue": "#393939",
+      "dtcgPath": "color.button.secondary.background",
+      "category": "color"
+    },
+    "color.button.tertiary.background": {
+      "figmaValue": "transparent",
+      "codeValue": "transparent",
+      "dtcgPath": "color.button.tertiary.background",
+      "category": "color"
+    },
+    "color.button.ghost.background": {
+      "figmaValue": "transparent",
+      "codeValue": "transparent",
+      "dtcgPath": "color.button.ghost.background",
+      "category": "color"
+    },
+    "color.button.danger.background": {
+      "figmaValue": "#da1e28",
+      "codeValue": "#da1e28",
+      "dtcgPath": "color.button.danger.background",
+      "category": "color"
+    },
+    "color.text.on-color": {
+      "figmaValue": "#ffffff",
+      "codeValue": "#ffffff",
+      "dtcgPath": "color.text.on-color",
+      "category": "color"
+    },
+    "color.text.primary": {
+      "figmaValue": "#161616",
+      "codeValue": "#161616",
+      "dtcgPath": "color.text.primary",
+      "category": "color"
+    },
+    "spacing.button.height.lg": {
+      "figmaValue": "48px",
+      "codeValue": "48px",
+      "dtcgPath": "spacing.button.height.lg",
+      "category": "spacing"
+    },
+    "typography.button.font-family": {
+      "figmaValue": "IBM Plex Sans",
+      "codeValue": "IBM Plex Sans",
+      "dtcgPath": "typography.button.font-family",
+      "category": "typography"
+    }
+  },
+  "authority": {
+    "structure": "cva",
+    "visual": "figma",
+    "conflictStrategy": "escalate"
+  },
+  "createdAt": "2026-04-01T00:00:00.000Z",
+  "updatedAt": "2026-04-01T00:00:00.000Z"
+}
