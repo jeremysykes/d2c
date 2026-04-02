@@ -17,15 +17,21 @@ Design systems drift because the handoff between Figma and code is manual, one-d
 The skill is invoked per-component:
 
 ```bash
-/d2c --component Badge --phase build
-/d2c --component Badge --phase validate
-/d2c --component Badge --phase ship
+/d2c --component Button --phase build
+/d2c --component Button --phase validate
+/d2c --component Button --phase ship
 ```
 
 Or run as a full pipeline:
 
 ```bash
-/d2c --component Badge --run-all
+/d2c --component Button --run-all
+```
+
+Or batch across multiple components:
+
+```bash
+/d2c --scope demo/scopes/all-buttons.json --phase validate
 ```
 
 ---
@@ -41,8 +47,8 @@ DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
 | **Design** | Figma component is extracted — variants, tokens, prop semantics. Variant Authority registry is seeded or synced. | Figma, Variant Authority |
 | **Build** | Component code is scaffolded (props, slots, CVA variants). Token pipeline runs (DTCG → Style Dictionary → Tailwind). Storybook story templates are generated from the variant manifest. | Figma, Storybook |
 | **Validate** | Three gates must pass: Playwright visual diff against Figma frames, token delta check, Storybook a11y + interaction tests. All three must clear before status can advance. | Playwright, Figma, Storybook |
-| **Ship** | Status registry is updated (alpha → beta → stable), semver and changelog are generated, Figma library is published back with any code-side corrections. | Figma, Variant Authority |
-| **Maintain** | Ongoing drift monitoring — Figma changes trigger re-validation. Consumer surface map tracks which products use the component and at what version. PR impact estimator flags breaking changes. | Figma, Playwright |
+| **Ship** | Status registry is updated (alpha → beta → stable), semver and changelog are generated, Figma component descriptions are updated with code-side corrections. | Figma, Variant Authority |
+| **Maintain** | On-demand drift monitoring — Figma changes trigger re-validation when invoked. Consumer surface map tracks which products use the component and at what version. PR impact estimator flags breaking changes. | Figma, Playwright |
 | **Retire** | Variant Authority emits a deprecation signal. Skill generates a codemod and migration guide. Removal gate blocks deletion until usage tracking confirms zero consumers. | Variant Authority, Storybook |
 
 ---
@@ -54,7 +60,7 @@ DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
 `d2c` depends on four MCP servers. Each owns a distinct authority surface.
 
 **Figma MCP**
-The design authority. Source of truth for component structure, variant definitions, token bindings, and visual spec. Used in both directions — reading design state in the build phase, writing corrections back in the ship phase. Requires Figma Editor access on the target file. Publishing to a team library requires Editor access on the library file specifically.
+The design authority. Source of truth for component structure, variant definitions, token bindings, and visual spec. Used in both directions — reading design state in the build phase, writing descriptions back in the ship phase. Requires Figma Editor access on the target file. Note: Variable *values* are extracted via Tokens Studio, not the Figma Variables REST API (see [Figma plan requirements](#figma-plan-requirements)).
 
 **Component Variant Authority MCP**
 The engineering contract layer. Stores the canonical variant manifest: which variants exist, what their allowed values are, what's deprecated, and what the migration path is. Enforces consistency between Figma variant names and code prop types. This is the tiebreaker when design and code conflict on structural decisions.
@@ -82,11 +88,14 @@ The visual truth layer. Screenshots rendered stories across a locked viewport (`
     playwright.md             ← Viewport config, diff strategy, baseline mgmt
     storybook.md              ← Story generation templates, test runner config
     variant-authority.md      ← Registry read/write patterns
+    radix-primitives.md       ← Primitive capability map
   schemas/
     variant-manifest.ts       ← Shared contract between all phases
     status-registry.ts        ← Lifecycle state shape
     drift-report.ts           ← Drift detection output shape
     diff-result.ts            ← Playwright diff output shape
+    batch-report.ts           ← Batch mode execution report
+    token-source.ts           ← Token extraction strategy resolution
   config/
     defaults.ts               ← Default flag values
     thresholds.ts             ← Diff threshold constants
@@ -109,13 +118,15 @@ All flags can be set at invocation or stored in `.d2c/config.json` at the repo r
 | `--phase` | — | Target a single phase. Omit to run the full pipeline. |
 | `--component` | — | Component name. Must match the Figma component key and the Variant Authority registry entry. |
 | `--run-all` | `false` | Execute all phases in sequence. |
+| `--scope` | — | Batch mode: path to a scope manifest JSON listing target components. |
+| `--framework` | `react` | Scaffold target: `react`, `vue`, or `wc`. |
 | `--force-retire` | `false` | Override the zero-usage removal gate. Requires `--justification` string. |
 
 **Default invocation:**
 
 ```bash
 /d2c \
-  --component Badge \
+  --component Button \
   --truth-structure cva \
   --truth-visual figma \
   --truth-conflict-strategy escalate \
@@ -138,10 +149,34 @@ Every phase writes inspectable artifacts to `.d2c/` at the repo root. These are 
   drift-report.json           ← Populated after maintain phase
   diff-baseline/              ← Playwright screenshot baselines per component
   diff-results/               ← Latest diff output, pass/fail, delta values
-  variant-manifest/           ← CVA registry snapshots per component
   changelogs/                 ← Generated changelogs per ship event
   migration-guides/           ← Generated codemods and docs per retire event
+  batch-reports/              ← Batch mode execution reports
 ```
+
+---
+
+## Figma plan requirements
+
+d2c uses the Figma MCP for component structure extraction and frame export. It does not use the Figma Variables REST API (Enterprise only).
+
+Token values are extracted via [Tokens Studio](https://tokens.studio/) (free tier sufficient) or pre-sourced from open-source design system repos. See [Token pipeline](docs/architecture/token-pipeline.md) for details.
+
+| Feature | Plan required | How d2c handles it |
+|---|---|---|
+| Component structure | Any | Figma MCP — GET /v1/files |
+| Frame export for diff | Any | Figma MCP — GET /v1/images |
+| Variable values (read) | Enterprise | Tokens Studio plugin or pre-sourced DTCG JSON |
+| Variable write-back | Enterprise | Manual re-import via Tokens Studio |
+| Library analytics | Enterprise | Not implemented |
+
+The `TOKEN_SOURCE` environment variable controls the token extraction strategy:
+
+| Value | Behavior |
+|---|---|
+| `auto` (default) | Uses Tokens Studio export if present, falls back to pre-sourced DTCG files |
+| `tokens-studio` | Requires Tokens Studio export — errors if not found |
+| `presourced` | Uses committed DTCG JSON files from open-source repos |
 
 ---
 
@@ -165,27 +200,65 @@ Figma's permission model exposes workspace role, not file-scoped permission. A u
 
 ---
 
-## POC: Badge component
+## POC: Three Button components
 
-The demo in this repo runs `d2c` against a single `Badge` component — narrow enough to be readable end-to-end, complex enough to exercise every phase. Badge has a realistic variant surface (`variant: info|success|warning|danger`, `size: sm|md`, `dismissible: boolean`), a clear visual contract that makes Playwright diffs meaningful, and a natural deprecation story used in the retire phase demo.
+The demo in this repo runs `d2c` against three Button components from three major design systems — narrow enough to be readable end-to-end, complex enough to exercise every phase, and diverse enough to prove the skill is design-system-agnostic.
+
+### Design system comparison
+
+| | IBM Carbon | GitHub Primer | Shopify Polaris |
+|---|---|---|---|
+| Primary color | Blue #0f62fe | Green #1f883d | Dark #303030 |
+| Variant model | `kind` (7 values) | `variant` (5 values) | `variant` (5) × `tone` (3) |
+| Sizes | sm, md, lg, xl, 2xl | sm, md, lg | micro, slim, medium, large |
+| Font | IBM Plex Sans | System stack | Inter |
+| CVA pattern | Simple variants | Simple variants | compoundVariants |
+| Token format | SCSS (pre-sourced as DTCG) | JSON5/DTCG-native | CSS custom props (pre-sourced as DTCG) |
 
 ### What the POC contains
 
 ```
 demo/
+  button/
+    carbon/
+      Button.tsx              ← Scaffolded component with CVA variants
+      Button.stories.tsx      ← Storybook stories
+      tokens/
+        button.tokens.json    ← Pre-sourced DTCG tokens (White theme)
+      fault/
+        button-token-fault.json  ← Seeded drift for maintain demo
+      consumers/
+        example-consumer.tsx  ← Seeded consumer for retire gate demo
+    primer/
+      Button.tsx              ← Primer Button (green primary, 5 variants)
+      Button.stories.tsx
+      tokens/
+        button.tokens.json    ← Pre-sourced DTCG tokens (Light theme)
+      fault/
+        button-token-fault.json
+    polaris/
+      Button.tsx              ← Polaris Button (dark primary, compound variants)
+      Button.stories.tsx
+      tokens/
+        button.tokens.json    ← Pre-sourced DTCG tokens (Light theme)
+      fault/
+        button-token-fault.json
+  scopes/
+    all-buttons.json          ← Batch mode scope manifest
   figma/
-    badge-spec.json           ← Exported Figma component data
-  components/
-    Badge/
-      Badge.tsx               ← Scaffolded in build phase
-      Badge.stories.tsx       ← Generated by Storybook MCP
-      Badge.test.ts           ← Interaction tests
-      badge.tokens.json       ← DTCG format token source
-  .variant-authority/
-    badge.manifest.json       ← CVA registry snapshot
+    carbon-button-spec.json   ← Extracted Figma component data
+    primer-button-spec.json
+    polaris-button-spec.json
+
+.variant-authority/
+  button.manifest.json        ← Carbon Button CVA registry (deprecated)
+  primer-button.manifest.json
+  polaris-button.manifest.json
 ```
 
-The POC includes a **seeded fault** used in step 5 below: the background token in `badge.tokens.json` is intentionally mismatched against `badge-spec.json` to trigger the maintain phase drift detection. This is the clearest demonstration of the skill's value — watching it catch a change that would otherwise ship silently.
+The POC includes **seeded faults** — each Button's `fault/` directory contains a modified token file with one value changed. Copying the fault file over the original triggers the maintain phase drift detection, demonstrating the skill's core value.
+
+The Carbon Button also includes a **seeded consumer** and a **deprecation demo** (Button → ActionButton) that exercises the retire phase's removal gate.
 
 ---
 
@@ -193,14 +266,15 @@ The POC includes a **seeded fault** used in step 5 below: the background token i
 
 ### Prerequisites
 
-- [Claude Code](https://code.claude.com) installed
-- Figma account with **Editor access** on the [d2c demo file](#) *(link to public Figma file)*
-- Node 20+
+- [Claude Code](https://claude.ai/code) installed
+- Figma account with **Editor access** on the target file
+- Node 22.19+
 - The following MCP servers configured in your Claude Code environment:
-  - `figma` — `claude mcp add --transport http figma https://mcp.figma.com/mcp`
-  - `playwright` — `npx skills add https://github.com/lackeyjb/playwright-skill --skill playwright-skill`
-  - `storybook` — *(link to Storybook MCP setup)*
-  - `variant-authority` — *(link to Variant Authority MCP setup)*
+  - `figma` — Figma official MCP
+  - `playwright` — Playwright MCP
+  - `storybook` — `@storybook/addon-mcp` (installed with Storybook)
+  - `variant-authority` — from `component-contracts` package
+- [Tokens Studio](https://tokens.studio/) Figma plugin (optional — falls back to pre-sourced tokens)
 
 ### 1. Clone and install
 
@@ -216,130 +290,149 @@ Add all four MCP servers to your Claude Code environment. Verify they are connec
 
 ```bash
 claude mcp list
-# Expected: figma, playwright, storybook, variant-authority all listed as connected
-```
-
-Verify Figma write access by running the preflight check in isolation:
-
-```bash
-/d2c --preflight-only --component Badge
-# Expected: ✓ Figma write access confirmed on demo file
 ```
 
 ### 3. Run the design phase
 
-Extract the Badge component from Figma and seed the Variant Authority registry:
+Extract the Button component from Figma and seed the Variant Authority registry:
 
 ```bash
-/d2c --component Badge --phase design
+/d2c --component Button --phase design
 ```
 
-Open `.d2c/variant-manifest/badge.manifest.json` and confirm the variant surface was captured: `variant`, `size`, `dismissible` with their allowed values.
+Open `.variant-authority/button.manifest.json` and confirm the variant surface was captured.
 
 ### 4. Run the build phase
 
 Scaffold the component code, run the token pipeline, and generate the Storybook story:
 
 ```bash
-/d2c --component Badge --phase build
+/d2c --component Button --phase build
 ```
 
 Inspect the outputs:
-- `demo/components/Badge/Badge.tsx` — scaffolded component with CVA variants
-- `demo/components/Badge/badge.tokens.json` — DTCG tokens extracted from Figma
-- `demo/components/Badge/Badge.stories.tsx` — story file with all variant combinations
+- `demo/button/carbon/Button.tsx` — scaffolded component with CVA variants
+- `demo/button/carbon/tokens/button.tokens.json` — DTCG tokens
+- `demo/button/carbon/Button.stories.tsx` — story file with all variant combinations
 
 ### 5. Run the validate phase
 
 Establish Playwright baselines and run all three validation gates:
 
 ```bash
-/d2c --component Badge --phase validate
+/d2c --component Button --phase validate
 ```
 
-Open `.d2c/diff-results/badge-latest.json`. All three gates should pass:
+Open `.d2c/diff-results/button-latest.json`. All three gates should pass:
 - `pixelDelta` below `0.1`
 - `regionDelta` below `15`
 - `tokenDelta` equal to `0`
 
 ### 6. Trigger a drift
 
-Open `demo/components/Badge/badge.tokens.json` and change the `info` variant background token value. This simulates a developer making a token change without a corresponding Figma update — the most common real-world drift scenario.
+Copy the seeded fault file over the original tokens:
 
-```json
-"color-badge-info-background": {
-  "$value": "#E0F0FF"   ← change this to any other value
-}
+```bash
+cp demo/button/carbon/fault/button-token-fault.json demo/button/carbon/tokens/button.tokens.json
 ```
+
+This simulates a developer making a token change without a corresponding Figma update — the most common real-world drift scenario.
 
 ### 7. Run the maintain phase
 
 ```bash
-/d2c --component Badge --phase maintain
+/d2c --component Button --phase maintain
 ```
 
-Open `.d2c/drift-report.json`. The skill should have detected the token mismatch and flagged it as a Figma-authoritative conflict (because `--truth-visual figma` is the default). The report will contain:
-
-- The affected token name
-- The Figma value vs the code value
-- The recommended resolution
-- A `BLOCKED` status preventing advancement to ship
-
-This is the skill exercising the `--truth-visual figma` flag — it does not silently accept the code value because visual authority belongs to Figma. A human decision is required before the pipeline can continue.
+Open `.d2c/drift-report.json`. The skill should have detected the token mismatch and flagged it as a Figma-authoritative conflict. The report will contain the affected token name, the Figma value vs the code value, the recommended resolution, and a `BLOCKED` status preventing advancement to ship.
 
 ### 8. Resolve the conflict and ship
 
 Restore the original token value, re-run validate, then ship:
 
 ```bash
-/d2c --component Badge --phase validate
-/d2c --component Badge --phase ship
+git checkout demo/button/carbon/tokens/button.tokens.json
+/d2c --component Button --phase validate
+/d2c --component Button --phase ship
 ```
 
-Open `.d2c/status-registry.json` and confirm Badge has advanced to `beta`. Open `.d2c/changelogs/badge-changelog.md` and review the generated release notes.
+### 9. Run batch mode
 
-### 9. Run the retire phase demo
-
-The POC includes a pre-configured deprecation scenario where `Badge` is replaced by `StatusBadge`. Run:
+Run validate across all three Button components:
 
 ```bash
-/d2c --component Badge --phase retire
+/d2c --scope demo/scopes/all-buttons.json --phase validate
 ```
 
-Inspect `.d2c/migration-guides/badge-to-statusbadge.md` for the generated codemod and migration documentation. Note that the removal gate will block if any consumers are still listed in the usage tracking surface — in the POC, Badge has a seeded consumer to demonstrate the gate behavior.
+Open `.d2c/batch-reports/` for the batch report with per-component results.
+
+### 10. Run the retire phase demo
+
+The Carbon Button includes a pre-configured deprecation scenario (Button → ActionButton):
+
+```bash
+/d2c --component Button --phase retire
+```
+
+Inspect `.d2c/migration-guides/button-to-actionbutton.md` for the generated migration guide and codemod. The removal gate will block because the seeded consumer still imports Button.
 
 ---
 
 ## What to look for
 
-After running the full POC, these are the specific things that demonstrate the principal-level design of the skill — they are worth understanding before using `d2c` on a real component:
+After running the full POC, these are the specific things that demonstrate the design of the skill:
 
-**The conflict report in step 7** shows the `--truth-structure` / `--truth-visual` split in practice. The skill did not apply a single global rule — it applied different authority logic to different artifact types. That is intentional and documented in the design decisions above.
+**The conflict report in step 7** shows the `--truth-structure` / `--truth-visual` split in practice. The skill did not apply a single global rule — it applied different authority logic to different artifact types.
 
-**The three-threshold diff in step 5** shows why a single percentage is insufficient. Open `.d2c/diff-results/badge-latest.json` and look at `pixelDelta` vs `regionDelta` — they tell different stories about the same diff.
+**The three-threshold diff in step 5** shows why a single percentage is insufficient. Open the diff result and look at `pixelDelta` vs `regionDelta` — they tell different stories about the same diff.
 
 **The Figma preflight in step 2** shows why role-checking is the wrong abstraction. The preflight tests actual write capability against the actual file, not workspace-level role.
 
-**The removal gate in step 9** shows that retirement is a process, not a deletion. The gate is enforced by the usage surface map — it cannot be bypassed without `--force-retire` and a logged justification string.
+**The removal gate in step 10** shows that retirement is a process, not a deletion. The gate is enforced by the usage surface map — it cannot be bypassed without `--force-retire` and a logged justification string.
+
+**The cross-system comparison** shows that d2c is design-system-agnostic. Carbon's blue primary, Primer's green primary, and Polaris's dark primary are all handled by the same phase logic with different token inputs.
+
+---
+
+## Webhook drift detection
+
+The maintain phase detects drift by on-demand invocation — `/d2c --phase maintain` checks current state when you run it. Continuous drift detection (Figma changes automatically triggering re-validation) requires a persistent webhook listener for Figma file change events.
+
+This is infrastructure, not a skill. It is intentionally out of scope for `d2c`.
+
+A companion service architecture would:
+1. Register a webhook listener with the Figma Webhooks V2 API
+2. On `FILE_UPDATE` events, extract the affected component IDs
+3. Invoke `/d2c --component {name} --phase maintain` for each affected component
+4. Route the drift report to a notification channel (Slack, GitHub Issue, etc.)
+
+This is a thin orchestration layer — the actual drift detection logic lives entirely in the d2c skill's maintain phase. The webhook service just decides *when* to run it.
+
+Figma webhook documentation: https://www.figma.com/developers/api#webhooks_v2
 
 ---
 
 ## Requirements
 
 ### System
-- Node 20+
+- Node 22.19+
 - Claude Code (latest)
 
 ### MCP servers
 - Figma MCP — Editor access on target file; Editor access on team library for publish
 - Playwright MCP — Chromium available in environment
-- Storybook MCP — Storybook running on `localhost:6006` (configurable)
-- Variant Authority MCP — Registry initialized at `.variant-authority/`
+- Storybook MCP — `@storybook/addon-mcp` addon, Storybook running on `localhost:6006` (configurable)
+- Variant Authority MCP — from `component-contracts` package, registry initialized at `.variant-authority/`
 
 ### Figma account
+- Any paid plan (Pro sufficient)
 - Editor role on the component file
 - Editor role on the team library file (ship phase only)
 - The `--figma-write-preflight true` flag (default) will verify this before any phase runs
+
+### Token extraction
+- [Tokens Studio](https://tokens.studio/) Figma plugin (free tier sufficient) — for live token extraction
+- Or: pre-sourced DTCG JSON files committed to the repo (demo works out of the box)
 
 ---
 
@@ -347,13 +440,23 @@ After running the full POC, these are the specific things that demonstrate the p
 
 These are honest gaps in the current version of the skill, not planned features.
 
-**Multi-component pipelines.** The skill currently operates on one component per invocation. A batch mode (`/d2c --run-all --scope foundation`) that can pipeline an entire token or component tier is a meaningful next step.
+**Framework-agnostic scaffolding.** The build phase currently scaffolds React with CVA. Vue (`@radix-vue`) and Web Components are documented in the phase docs but not yet exercised in demos.
 
-**Webhook-based drift detection.** The maintain phase currently requires manual invocation to check for Figma drift. A webhook listener that triggers re-validation on Figma file save would close this loop without polling.
+**Live Storybook integration.** The Storybook MCP addon (`@storybook/addon-mcp`) is documented but Storybook is not yet installed in this repo. Story files are generated but not served.
 
-**Framework-agnostic scaffolding.** The build phase currently scaffolds React with CVA. Vue and Web Components are the next targets.
+**component-contracts MCP servers.** The `variant-authority` and `radix-primitives` MCP servers are specified in `mcps/variant-authority.md` and `mcps/radix-primitives.md` but not yet implemented. Manifests are currently read/written as JSON files directly.
 
-**Storybook 10 compatibility.** The story generation templates target Storybook 8 CSF3. Storybook 10 introduces breaking changes to `argTypes` and `parameters.status` that will require updates to `mcps/storybook.md`.
+**Playwright visual diff execution.** The three-threshold diff strategy is fully specified in `mcps/playwright.md` but not yet wired to live Playwright runs. Baselines and diff results use the schema but are populated by the demo, not by actual screenshot comparison.
+
+---
+
+## Skill compatibility
+
+The `SKILL.md` and all phase/mcp documentation files are written in portable format compatible with:
+
+- Claude Code (primary)
+- Cursor
+- Codex CLI
 
 ---
 
