@@ -3,10 +3,10 @@
   "updatedAt": "2026-04-01T00:00:00.000Z",
   "components": {
     "Button": {
-      "status": "build",
-      "previousStatus": "design",
+      "status": "deprecated",
+      "previousStatus": "build",
       "updatedAt": "2026-04-01T00:00:00.000Z",
-      "updatedBy": "build",
+      "updatedBy": "retire",
       "history": [
         {
           "from": "draft",
@@ -21,6 +21,13 @@
           "at": "2026-04-01T00:00:00.000Z",
           "by": "build",
           "reason": "Component scaffolded with CVA variants, tokens pre-sourced from Carbon open-source repo"
+        },
+        {
+          "from": "build",
+          "to": "deprecated",
+          "at": "2026-04-01T00:00:00.000Z",
+          "by": "retire",
+          "reason": "Deprecated in favor of ActionButton. 1 consumer remains — removal gate blocked."
         }
       ]
     },

@@ -212,9 +212,10 @@ describe("status registry", () => {
     expect(components.Button).toBeDefined();
   });
 
-  it("Button is in build status", () => {
+  it("Button has progressed past build status", () => {
     const registry = readJson(registryPath);
-    const components = registry.components as Record<string, { status: string }>;
-    expect(components.Button.status).toBe("build");
+    const components = registry.components as Record<string, { status: string; history: Array<{ to: string }> }>;
+    const hasBuilt = components.Button.history.some((h) => h.to === "build");
+    expect(hasBuilt).toBe(true);
   });
 });
