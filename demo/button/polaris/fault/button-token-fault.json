@@ -1,0 +1,184 @@
+{
+  "color": {
+    "button": {
+      "primary": {
+        "background": {
+          "$type": "color",
+          "$value": "#1a1a1a"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#1a1a1a"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#1a1a1a"
+        }
+      },
+      "secondary": {
+        "background": {
+          "$type": "color",
+          "$value": "#e3e3e3"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#dbdbdb"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#c9cccf"
+        }
+      },
+      "tertiary": {
+        "background": {
+          "$type": "color",
+          "$value": "transparent"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#f1f1f1"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#e3e3e3"
+        }
+      },
+      "plain": {
+        "background": {
+          "$type": "color",
+          "$value": "transparent"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "transparent"
+        }
+      },
+      "critical": {
+        "background": {
+          "$type": "color",
+          "$value": "#e51c00"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#c41400"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#a11200"
+        }
+      },
+      "success": {
+        "background": {
+          "$type": "color",
+          "$value": "#29845a"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#1d6b47"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#155239"
+        }
+      },
+      "disabled": {
+        "background": {
+          "$type": "color",
+          "$value": "#f1f1f1"
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "#303030"
+      },
+      "on-fill": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "critical": {
+        "$type": "color",
+        "$value": "#e51c00"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#29845a"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#b5b5b5"
+      },
+      "link": {
+        "$type": "color",
+        "$value": "#005bd3"
+      }
+    },
+    "border": {
+      "secondary": {
+        "$type": "color",
+        "$value": "#c9cccf"
+      }
+    }
+  },
+  "spacing": {
+    "button": {
+      "height": {
+        "micro": {
+          "$type": "dimension",
+          "$value": "20px"
+        },
+        "slim": {
+          "$type": "dimension",
+          "$value": "28px"
+        },
+        "medium": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "large": {
+          "$type": "dimension",
+          "$value": "40px"
+        }
+      },
+      "padding": {
+        "horizontal": {
+          "$type": "dimension",
+          "$value": "12px"
+        },
+        "horizontal-large": {
+          "$type": "dimension",
+          "$value": "16px"
+        }
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "border-radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      }
+    }
+  },
+  "typography": {
+    "button": {
+      "font-family": {
+        "$type": "fontFamily",
+        "$value": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "13px"
+      },
+      "font-weight": {
+        "$type": "number",
+        "$value": 550
+      },
+      "line-height": {
+        "$type": "dimension",
+        "$value": "20px"
+      }
+    }
+  }
+}

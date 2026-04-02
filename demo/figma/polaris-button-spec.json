@@ -1,0 +1,36 @@
+{
+  "component": "PolarisButton",
+  "source": "figma",
+  "fileKey": "",
+  "nodeId": "",
+  "fileName": "Shopify Polaris (Community) - Copy",
+  "description": "Buttons are used to initialize an action. Button labels express what action will occur when the user interacts with it.",
+  "documentationUrl": "https://polaris.shopify.com/components/actions/button",
+  "variants": {
+    "Variant": {
+      "values": ["Primary", "Secondary", "Tertiary", "Plain", "Monochrome plain"],
+      "type": "VARIANT"
+    },
+    "Tone": {
+      "values": ["Default", "Success", "Critical"],
+      "type": "VARIANT"
+    },
+    "Size": {
+      "values": ["Micro", "Slim", "Medium", "Large"],
+      "type": "VARIANT"
+    },
+    "State": {
+      "values": ["Default", "Hover", "Active", "Focus", "Disabled"],
+      "type": "VARIANT"
+    }
+  },
+  "tokens": {
+    "bg-fill-brand": "#303030",
+    "bg-fill-critical": "#e51c00",
+    "bg-fill-success": "#29845a",
+    "text-brand-on-bg-fill": "#ffffff",
+    "text-primary": "#303030"
+  },
+  "extractedAt": "2026-04-01T00:00:00.000Z",
+  "note": "Figma file key and node ID to be populated when Jeremy provides Polaris file copy"
+}

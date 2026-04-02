@@ -1,0 +1,95 @@
+{
+  "component": "PolarisButton",
+  "version": "0.1.0",
+  "figmaFileKey": "",
+  "figmaNodeId": "",
+  "variants": {
+    "variant": {
+      "values": ["primary", "secondary", "tertiary", "plain", "monochromePlain"],
+      "defaultValue": "secondary",
+      "type": "string",
+      "description": "Visual style variant of the button"
+    },
+    "tone": {
+      "values": ["default", "success", "critical"],
+      "defaultValue": "default",
+      "type": "string",
+      "description": "Color treatment — separates color from visual style"
+    },
+    "size": {
+      "values": ["micro", "slim", "medium", "large"],
+      "defaultValue": "medium",
+      "type": "string",
+      "description": "Button size — controls height and padding"
+    },
+    "fullWidth": {
+      "values": ["true", "false"],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Whether the button expands to full container width"
+    },
+    "disabled": {
+      "values": ["true", "false"],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Whether the button is disabled"
+    }
+  },
+  "slots": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Button text content"
+    },
+    {
+      "name": "icon",
+      "required": false,
+      "description": "Optional icon element"
+    }
+  ],
+  "tokens": {
+    "color.button.primary.background": {
+      "figmaValue": "#303030",
+      "codeValue": "#303030",
+      "dtcgPath": "color.button.primary.background",
+      "category": "color"
+    },
+    "color.button.secondary.background": {
+      "figmaValue": "#e3e3e3",
+      "codeValue": "#e3e3e3",
+      "dtcgPath": "color.button.secondary.background",
+      "category": "color"
+    },
+    "color.button.critical.background": {
+      "figmaValue": "#e51c00",
+      "codeValue": "#e51c00",
+      "dtcgPath": "color.button.critical.background",
+      "category": "color"
+    },
+    "color.button.success.background": {
+      "figmaValue": "#29845a",
+      "codeValue": "#29845a",
+      "dtcgPath": "color.button.success.background",
+      "category": "color"
+    },
+    "color.text.on-fill": {
+      "figmaValue": "#ffffff",
+      "codeValue": "#ffffff",
+      "dtcgPath": "color.text.on-fill",
+      "category": "color"
+    },
+    "spacing.button.height.medium": {
+      "figmaValue": "32px",
+      "codeValue": "32px",
+      "dtcgPath": "spacing.button.height.medium",
+      "category": "spacing"
+    }
+  },
+  "authority": {
+    "structure": "cva",
+    "visual": "figma",
+    "conflictStrategy": "escalate"
+  },
+  "createdAt": "2026-04-01T00:00:00.000Z",
+  "updatedAt": "2026-04-01T00:00:00.000Z"
+}
