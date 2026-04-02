@@ -1,0 +1,40 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --cds-color-button-primary-background: #0f62fe;
+  --cds-color-button-primary-hover: #0043ce;
+  --cds-color-button-primary-active: #002d9c;
+  --cds-color-button-secondary-background: #393939;
+  --cds-color-button-secondary-hover: #474747;
+  --cds-color-button-secondary-active: #6f6f6f;
+  --cds-color-button-tertiary-background: rgba(0, 0, 0, 0);
+  --cds-color-button-tertiary-hover: #0353e9;
+  --cds-color-button-tertiary-active: #002d9c;
+  --cds-color-button-ghost-background: rgba(0, 0, 0, 0);
+  --cds-color-button-ghost-hover: #e8e8e8;
+  --cds-color-button-ghost-active: #c6c6c6;
+  --cds-color-button-danger-background: #da1e28;
+  --cds-color-button-danger-hover: #ba1b23;
+  --cds-color-button-danger-active: #750e13;
+  --cds-color-button-disabled-background: #c6c6c6;
+  --cds-color-text-on-color: #ffffff;
+  --cds-color-text-on-color-disabled: #8d8d8d;
+  --cds-color-text-primary: #161616;
+  --cds-color-text-interactive: #0f62fe;
+  --cds-color-border-interactive: #0f62fe;
+  --cds-spacing-button-height-sm: 32px;
+  --cds-spacing-button-height-md: 40px;
+  --cds-spacing-button-height-lg: 48px;
+  --cds-spacing-button-height-xl: 64px;
+  --cds-spacing-button-height-2xl: 80px;
+  --cds-spacing-button-padding-horizontal: 16px;
+  --cds-spacing-button-padding-icon-only: 16px;
+  --cds-spacing-button-icon-size: 16px;
+  --cds-typography-button-font-family: 'IBM Plex Sans';
+  --cds-typography-button-font-size: 14px;
+  --cds-typography-button-font-weight: 400;
+  --cds-typography-button-line-height: 18px;
+  --cds-typography-button-letter-spacing: 0.16px;
+}

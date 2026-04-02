@@ -12,19 +12,26 @@
     "test:watch": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "build-tokens": "node --import tsx scripts/build-tokens.ts",
     "validate": "vitest run && tsc --noEmit"
   },
   "dependencies": {
     "component-contracts": "file:../component-contracts"
   },
   "devDependencies": {
+    "@storybook/react": "^10.3.3",
+    "@storybook/react-vite": "^10.3.3",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "class-variance-authority": "^0.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "storybook": "^10.3.3",
+    "style-dictionary": "^5.4.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.0",
+    "vite": "^7.3.1",
     "vitest": "^3.0.0"
   }
 }

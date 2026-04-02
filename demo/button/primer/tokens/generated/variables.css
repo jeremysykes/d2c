@@ -1,0 +1,40 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --primer-color-button-primary-background: #1f883d;
+  --primer-color-button-primary-hover: #1c8139;
+  --primer-color-button-primary-active: #197935;
+  --primer-color-button-primary-disabled: #95d8a6;
+  --primer-color-button-default-background: #f6f8fa;
+  --primer-color-button-default-hover: #eff2f5;
+  --primer-color-button-default-active: #e6eaef;
+  --primer-color-button-outline-background: #f6f8fa;
+  --primer-color-button-outline-hover: #0969da;
+  --primer-color-button-outline-active: #0757ba;
+  --primer-color-button-outline-foreground: #0969da;
+  --primer-color-button-danger-background: #f6f8fa;
+  --primer-color-button-danger-hover: #cf222e;
+  --primer-color-button-danger-active: #a40e26;
+  --primer-color-button-danger-foreground: #d1242f;
+  --primer-color-button-invisible-background: rgba(0, 0, 0, 0);
+  --primer-color-button-invisible-hover: #e8ecf0;
+  --primer-color-button-invisible-active: #d1d9e0;
+  --primer-color-button-disabled-background: #f6f8fa;
+  --primer-color-text-primary: #25292e;
+  --primer-color-text-on-emphasis: #ffffff;
+  --primer-color-text-disabled: #818b98;
+  --primer-color-border-default: #d1d9e0;
+  --primer-color-border-transparent: rgba(0, 0, 0, 0);
+  --primer-spacing-button-height-sm: 28px;
+  --primer-spacing-button-height-md: 32px;
+  --primer-spacing-button-height-lg: 40px;
+  --primer-spacing-button-padding-horizontal: 16px;
+  --primer-spacing-button-padding-horizontal-sm: 12px;
+  --primer-spacing-button-gap: 8px;
+  --primer-typography-button-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+  --primer-typography-button-font-size: 14px;
+  --primer-typography-button-font-weight: 500;
+  --primer-typography-button-line-height: 20px;
+}

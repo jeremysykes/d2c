@@ -1,0 +1,43 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --polaris-color-button-primary-background: #303030;
+  --polaris-color-button-primary-hover: #1a1a1a;
+  --polaris-color-button-primary-active: #1a1a1a;
+  --polaris-color-button-secondary-background: #e3e3e3;
+  --polaris-color-button-secondary-hover: #dbdbdb;
+  --polaris-color-button-secondary-active: #c9cccf;
+  --polaris-color-button-tertiary-background: rgba(0, 0, 0, 0);
+  --polaris-color-button-tertiary-hover: #f1f1f1;
+  --polaris-color-button-tertiary-active: #e3e3e3;
+  --polaris-color-button-plain-background: rgba(0, 0, 0, 0);
+  --polaris-color-button-plain-hover: rgba(0, 0, 0, 0);
+  --polaris-color-button-critical-background: #e51c00;
+  --polaris-color-button-critical-hover: #c41400;
+  --polaris-color-button-critical-active: #a11200;
+  --polaris-color-button-success-background: #29845a;
+  --polaris-color-button-success-hover: #1d6b47;
+  --polaris-color-button-success-active: #155239;
+  --polaris-color-button-disabled-background: #f1f1f1;
+  --polaris-color-text-primary: #303030;
+  --polaris-color-text-on-fill: #ffffff;
+  --polaris-color-text-critical: #e51c00;
+  --polaris-color-text-success: #29845a;
+  --polaris-color-text-disabled: #b5b5b5;
+  --polaris-color-text-link: #005bd3;
+  --polaris-color-border-secondary: #c9cccf;
+  --polaris-spacing-button-height-micro: 20px;
+  --polaris-spacing-button-height-slim: 28px;
+  --polaris-spacing-button-height-medium: 32px;
+  --polaris-spacing-button-height-large: 40px;
+  --polaris-spacing-button-padding-horizontal: 12px;
+  --polaris-spacing-button-padding-horizontal-large: 16px;
+  --polaris-spacing-button-gap: 4px;
+  --polaris-spacing-button-border-radius: 8px;
+  --polaris-typography-button-font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --polaris-typography-button-font-size: 13px;
+  --polaris-typography-button-font-weight: 550;
+  --polaris-typography-button-line-height: 20px;
+}
