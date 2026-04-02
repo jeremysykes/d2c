@@ -1,0 +1,5 @@
+{
+  "name": "all-buttons",
+  "description": "All three demo Button components across Carbon, Primer, and Polaris design systems",
+  "components": ["Button", "PrimerButton", "PolarisButton"]
+}

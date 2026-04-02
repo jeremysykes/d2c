@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-04-01T00:00:00.000Z",
+  "scope": "demo/scopes/all-buttons.json",
+  "phase": "build",
+  "results": [
+    {
+      "component": "Button",
+      "status": "passed",
+      "phase": "build",
+      "duration": 1200
+    },
+    {
+      "component": "PrimerButton",
+      "status": "passed",
+      "phase": "build",
+      "duration": 980
+    },
+    {
+      "component": "PolarisButton",
+      "status": "passed",
+      "phase": "build",
+      "duration": 1050
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "blocked": 0,
+    "skipped": 0,
+    "duration": 3230
+  }
+}
