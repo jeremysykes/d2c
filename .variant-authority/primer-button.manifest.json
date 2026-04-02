@@ -1,0 +1,95 @@
+{
+  "component": "PrimerButton",
+  "version": "0.1.0",
+  "figmaFileKey": "",
+  "figmaNodeId": "",
+  "variants": {
+    "variant": {
+      "values": ["default", "primary", "danger", "outline", "invisible"],
+      "defaultValue": "default",
+      "type": "string",
+      "description": "Visual style variant of the button"
+    },
+    "size": {
+      "values": ["sm", "md", "lg"],
+      "defaultValue": "md",
+      "type": "string",
+      "description": "Button size — controls height and padding"
+    },
+    "block": {
+      "values": ["true", "false"],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Whether the button takes full width"
+    },
+    "disabled": {
+      "values": ["true", "false"],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Whether the button is disabled"
+    }
+  },
+  "slots": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Button text content"
+    },
+    {
+      "name": "leadingVisual",
+      "required": false,
+      "description": "Optional leading icon or visual element"
+    }
+  ],
+  "tokens": {
+    "color.button.primary.background": {
+      "figmaValue": "#1f883d",
+      "codeValue": "#1f883d",
+      "dtcgPath": "color.button.primary.background",
+      "category": "color"
+    },
+    "color.button.default.background": {
+      "figmaValue": "#f6f8fa",
+      "codeValue": "#f6f8fa",
+      "dtcgPath": "color.button.default.background",
+      "category": "color"
+    },
+    "color.button.danger.foreground": {
+      "figmaValue": "#d1242f",
+      "codeValue": "#d1242f",
+      "dtcgPath": "color.button.danger.foreground",
+      "category": "color"
+    },
+    "color.button.outline.foreground": {
+      "figmaValue": "#0969da",
+      "codeValue": "#0969da",
+      "dtcgPath": "color.button.outline.foreground",
+      "category": "color"
+    },
+    "color.text.primary": {
+      "figmaValue": "#25292e",
+      "codeValue": "#25292e",
+      "dtcgPath": "color.text.primary",
+      "category": "color"
+    },
+    "color.text.on-emphasis": {
+      "figmaValue": "#ffffff",
+      "codeValue": "#ffffff",
+      "dtcgPath": "color.text.on-emphasis",
+      "category": "color"
+    },
+    "spacing.button.height.md": {
+      "figmaValue": "32px",
+      "codeValue": "32px",
+      "dtcgPath": "spacing.button.height.md",
+      "category": "spacing"
+    }
+  },
+  "authority": {
+    "structure": "cva",
+    "visual": "figma",
+    "conflictStrategy": "escalate"
+  },
+  "createdAt": "2026-04-01T00:00:00.000Z",
+  "updatedAt": "2026-04-01T00:00:00.000Z"
+}

@@ -1,0 +1,170 @@
+{
+  "color": {
+    "button": {
+      "primary": {
+        "background": {
+          "$type": "color",
+          "$value": "#1f883d"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#1c8139"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#197935"
+        },
+        "disabled": {
+          "$type": "color",
+          "$value": "#95d8a6"
+        }
+      },
+      "default": {
+        "background": {
+          "$type": "color",
+          "$value": "#f6f8fa"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#eff2f5"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#e6eaef"
+        }
+      },
+      "outline": {
+        "background": {
+          "$type": "color",
+          "$value": "#f6f8fa"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#0969da"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#0757ba"
+        },
+        "foreground": {
+          "$type": "color",
+          "$value": "#0969da"
+        }
+      },
+      "danger": {
+        "background": {
+          "$type": "color",
+          "$value": "#f6f8fa"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#cf222e"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#a40e26"
+        },
+        "foreground": {
+          "$type": "color",
+          "$value": "#d1242f"
+        }
+      },
+      "invisible": {
+        "background": {
+          "$type": "color",
+          "$value": "transparent"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "#e8ecf0"
+        },
+        "active": {
+          "$type": "color",
+          "$value": "#d1d9e0"
+        }
+      },
+      "disabled": {
+        "background": {
+          "$type": "color",
+          "$value": "#f6f8fa"
+        }
+      }
+    },
+    "text": {
+      "primary": {
+        "$type": "color",
+        "$value": "#25292e"
+      },
+      "on-emphasis": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#818b98"
+      }
+    },
+    "border": {
+      "default": {
+        "$type": "color",
+        "$value": "#d1d9e0"
+      },
+      "transparent": {
+        "$type": "color",
+        "$value": "transparent"
+      }
+    }
+  },
+  "spacing": {
+    "button": {
+      "height": {
+        "sm": {
+          "$type": "dimension",
+          "$value": "28px"
+        },
+        "md": {
+          "$type": "dimension",
+          "$value": "32px"
+        },
+        "lg": {
+          "$type": "dimension",
+          "$value": "40px"
+        }
+      },
+      "padding": {
+        "horizontal": {
+          "$type": "dimension",
+          "$value": "16px"
+        },
+        "horizontal-sm": {
+          "$type": "dimension",
+          "$value": "12px"
+        }
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": "8px"
+      }
+    }
+  },
+  "typography": {
+    "button": {
+      "font-family": {
+        "$type": "fontFamily",
+        "$value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif"
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "font-weight": {
+        "$type": "number",
+        "$value": 500
+      },
+      "line-height": {
+        "$type": "dimension",
+        "$value": "20px"
+      }
+    }
+  }
+}

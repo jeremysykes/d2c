@@ -1,0 +1,31 @@
+{
+  "component": "PrimerButton",
+  "source": "figma",
+  "fileKey": "",
+  "nodeId": "",
+  "fileName": "Primer Web (Community) - Copy",
+  "description": "Buttons allow users to take actions and make choices with a single tap or click.",
+  "documentationUrl": "https://primer.style/product/components/button/",
+  "variants": {
+    "Variant": {
+      "values": ["Default", "Primary", "Danger", "Outline", "Invisible"],
+      "type": "VARIANT"
+    },
+    "Size": {
+      "values": ["Small", "Medium", "Large"],
+      "type": "VARIANT"
+    },
+    "State": {
+      "values": ["Rest", "Hover", "Active", "Focus", "Disabled"],
+      "type": "VARIANT"
+    }
+  },
+  "tokens": {
+    "button-primary-bgColor-rest": "#1f883d",
+    "button-default-bgColor-rest": "#f6f8fa",
+    "fgColor-default": "#25292e",
+    "fgColor-onEmphasis": "#ffffff"
+  },
+  "extractedAt": "2026-04-01T00:00:00.000Z",
+  "note": "Figma file key and node ID to be populated when Jeremy provides Primer file copy"
+}

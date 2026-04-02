@@ -23,6 +23,28 @@
           "reason": "Component scaffolded with CVA variants, tokens pre-sourced from Carbon open-source repo"
         }
       ]
+    },
+    "PrimerButton": {
+      "status": "build",
+      "previousStatus": "design",
+      "updatedAt": "2026-04-01T00:00:00.000Z",
+      "updatedBy": "build",
+      "history": [
+        {
+          "from": "draft",
+          "to": "design",
+          "at": "2026-04-01T00:00:00.000Z",
+          "by": "design",
+          "reason": "Extracted from Primer design system documentation"
+        },
+        {
+          "from": "design",
+          "to": "build",
+          "at": "2026-04-01T00:00:00.000Z",
+          "by": "build",
+          "reason": "Component scaffolded with CVA variants, tokens pre-sourced from Primer Primitives"
+        }
+      ]
     }
   }
 }
