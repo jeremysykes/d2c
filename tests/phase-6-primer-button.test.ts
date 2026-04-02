@@ -126,9 +126,9 @@ describe("Primer Button component", () => {
     expect(content).toContain("invisible");
   });
 
-  it("uses green for primary (#1f883d)", () => {
+  it("uses CSS custom properties for colors", () => {
     const content = readFile("demo/button/primer/Button.tsx");
-    expect(content).toContain("#1f883d");
+    expect(content).toContain("var(--primer-");
   });
 });
 

@@ -32,5 +32,5 @@
     "text-primary": "#303030"
   },
   "extractedAt": "2026-04-01T00:00:00.000Z",
-  "note": "Figma file key and node ID to be populated when Jeremy provides Polaris file copy"
+  "note": "File key populated. Node ID requires browsing the file — Figma MCP search returns library components, not file-internal node IDs for community copies."
 }

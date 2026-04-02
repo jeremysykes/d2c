@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode, ButtonHTMLAttributes } from "react";
+import "./tokens/generated/variables.css";
 
 const buttonVariants = cva(
   [
@@ -7,11 +8,12 @@ const buttonVariants = cva(
     "inline-flex",
     "items-center",
     "justify-center",
-    "gap-1",
-    "text-[13px]",
-    "leading-5",
-    "font-[550]",
-    "rounded-lg",
+    "gap-[var(--polaris-spacing-button-gap)]",
+    "text-[length:var(--polaris-typography-button-font-size)]",
+    "leading-[var(--polaris-typography-button-line-height)]",
+    "font-[number:var(--polaris-typography-button-font-weight)]",
+    "font-[var(--polaris-typography-button-font-family)]",
+    "rounded-[var(--polaris-spacing-button-border-radius)]",
     "border",
     "border-transparent",
     "cursor-pointer",
@@ -21,15 +23,15 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-[#303030] text-white hover:bg-[#1a1a1a] active:bg-[#1a1a1a]",
+          "bg-[var(--polaris-color-button-primary-background)] text-[var(--polaris-color-text-on-fill)] hover:bg-[var(--polaris-color-button-primary-hover)] active:bg-[var(--polaris-color-button-primary-active)]",
         secondary:
-          "bg-[#e3e3e3] text-[#303030] hover:bg-[#dbdbdb] active:bg-[#c9cccf]",
+          "bg-[var(--polaris-color-button-secondary-background)] text-[var(--polaris-color-text-primary)] hover:bg-[var(--polaris-color-button-secondary-hover)] active:bg-[var(--polaris-color-button-secondary-active)]",
         tertiary:
-          "bg-transparent text-[#303030] hover:bg-[#f1f1f1] active:bg-[#e3e3e3]",
+          "bg-[var(--polaris-color-button-tertiary-background)] text-[var(--polaris-color-text-primary)] hover:bg-[var(--polaris-color-button-tertiary-hover)] active:bg-[var(--polaris-color-button-tertiary-active)]",
         plain:
-          "bg-transparent text-[#005bd3] border-transparent hover:underline",
+          "bg-[var(--polaris-color-button-plain-background)] text-[var(--polaris-color-text-link)] border-transparent hover:underline",
         monochromePlain:
-          "bg-transparent text-[#303030] border-transparent hover:underline",
+          "bg-transparent text-[var(--polaris-color-text-primary)] border-transparent hover:underline",
       },
       tone: {
         default: "",
@@ -37,17 +39,17 @@ const buttonVariants = cva(
         critical: "",
       },
       size: {
-        micro: "h-5 px-2 py-0 text-xs",
-        slim: "h-7 px-3 py-0",
-        medium: "h-8 px-3 py-0",
-        large: "h-10 px-4 py-0",
+        micro: "h-[var(--polaris-spacing-button-height-micro)] px-2 py-0 text-xs",
+        slim: "h-[var(--polaris-spacing-button-height-slim)] px-[var(--polaris-spacing-button-padding-horizontal)] py-0",
+        medium: "h-[var(--polaris-spacing-button-height-medium)] px-[var(--polaris-spacing-button-padding-horizontal)] py-0",
+        large: "h-[var(--polaris-spacing-button-height-large)] px-[var(--polaris-spacing-button-padding-horizontal-large)] py-0",
       },
       fullWidth: {
         true: "w-full",
         false: "",
       },
       disabled: {
-        true: "bg-[#f1f1f1] text-[#b5b5b5] border-transparent cursor-not-allowed hover:bg-[#f1f1f1] active:bg-[#f1f1f1]",
+        true: "bg-[var(--polaris-color-button-disabled-background)] text-[var(--polaris-color-text-disabled)] border-transparent cursor-not-allowed hover:bg-[var(--polaris-color-button-disabled-background)] active:bg-[var(--polaris-color-button-disabled-background)]",
         false: "",
       },
     },
@@ -56,33 +58,33 @@ const buttonVariants = cva(
         variant: "primary",
         tone: "critical",
         className:
-          "bg-[#e51c00] text-white hover:bg-[#c41400] active:bg-[#a11200]",
+          "bg-[var(--polaris-color-button-critical-background)] text-[var(--polaris-color-text-on-fill)] hover:bg-[var(--polaris-color-button-critical-hover)] active:bg-[var(--polaris-color-button-critical-active)]",
       },
       {
         variant: "primary",
         tone: "success",
         className:
-          "bg-[#29845a] text-white hover:bg-[#1d6b47] active:bg-[#155239]",
+          "bg-[var(--polaris-color-button-success-background)] text-[var(--polaris-color-text-on-fill)] hover:bg-[var(--polaris-color-button-success-hover)] active:bg-[var(--polaris-color-button-success-active)]",
       },
       {
         variant: "secondary",
         tone: "critical",
-        className: "text-[#e51c00]",
+        className: "text-[var(--polaris-color-text-critical)]",
       },
       {
         variant: "secondary",
         tone: "success",
-        className: "text-[#29845a]",
+        className: "text-[var(--polaris-color-text-success)]",
       },
       {
         variant: "plain",
         tone: "critical",
-        className: "text-[#e51c00]",
+        className: "text-[var(--polaris-color-text-critical)]",
       },
       {
         variant: "plain",
         tone: "success",
-        className: "text-[#29845a]",
+        className: "text-[var(--polaris-color-text-success)]",
       },
     ],
     defaultVariants: {
