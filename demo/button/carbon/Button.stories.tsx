@@ -7,7 +7,7 @@ import { Button } from "./Button";
  * Figma variant axes:
  * - Style: Primary, Secondary, Tertiary, Ghost, Danger primary, Danger tertiary, Danger ghost
  * - Type: Text + Icon, Icon only
- * - Size: Small, Medium, Large, Extra large, 2X large
+ * - Size: Extra small, Small, Medium, Large, Extra large, 2X large, Expressive
  * - State: Enabled, Hover, Active, Focus, Disabled, Skeleton
  */
 
@@ -22,7 +22,7 @@ const meta = {
   title: "Carbon/Button",
   component: Button,
   parameters: {
-    status: { type: "build" },
+    status: { type: "design" },
   },
   argTypes: {
     kind: {
@@ -33,7 +33,7 @@ const meta = {
     size: {
       control: "select",
       // From Figma "Size" axis
-      options: ["sm", "md", "lg", "xl", "2xl"],
+      options: ["xs", "sm", "md", "lg", "xl", "2xl", "expressive"],
     },
     type: {
       control: "select",
@@ -62,11 +62,13 @@ export const DangerTertiary: Story = { args: { kind: "danger-tertiary" } };
 export const DangerGhost: Story = { args: { kind: "danger-ghost" } };
 
 // --- Figma "Size" axis ---
+export const ExtraSmall: Story = { args: { size: "xs" } };
 export const Small: Story = { args: { size: "sm" } };
 export const Medium: Story = { args: { size: "md" } };
 export const Large: Story = { args: { size: "lg" } };
 export const ExtraLarge: Story = { args: { size: "xl" } };
 export const XXLarge: Story = { args: { size: "2xl" } };
+export const Expressive: Story = { args: { size: "expressive" } };
 
 // --- Figma "Type" axis ---
 export const IconOnly: Story = { args: { type: "icon-only", icon: AddIcon } };

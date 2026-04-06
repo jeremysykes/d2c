@@ -3,8 +3,8 @@
   "updatedAt": "2026-04-06T00:00:00.000Z",
   "components": {
     "Button": {
-      "status": "build",
-      "previousStatus": "alpha",
+      "status": "alpha",
+      "previousStatus": "validate",
       "updatedAt": "2026-04-06T00:00:00.000Z",
       "updatedBy": "build",
       "history": [
@@ -63,6 +63,27 @@
           "at": "2026-04-06T00:00:00.000Z",
           "by": "validate-redesign",
           "reason": "Rolled back — validate phase redesigned. Previous validation did not perform real Figma-vs-rendered structural comparison. Pixel/region gates removed."
+        },
+        {
+          "from": "build",
+          "to": "blocked",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "validate",
+          "reason": "Structural gate failed: verticalAlignment 15px off center. Text top-aligned via flex-col, Figma spec requires centered for lg size."
+        },
+        {
+          "from": "blocked",
+          "to": "validate",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "validate",
+          "reason": "All gates passed after fix. Structural: 0 mismatches (text centered, delta=0px). Token: 0/14 mismatches. Fix: added justify-center to center-aligned size variants."
+        },
+        {
+          "from": "validate",
+          "to": "alpha",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "ship",
+          "reason": "Promoted to alpha (0.1.0-alpha.2). Figma write preflight passed. Component description updated. Structural gate validated. Changelog appended."
         }
       ]
     },

@@ -88,11 +88,11 @@ describe("variant manifest", () => {
     expect(variants.kind.values).toHaveLength(7);
   });
 
-  it("has size variant with 5 values", () => {
+  it("has size variant with 7 values", () => {
     const manifest = readJson(manifestPath);
     const variants = manifest.variants as Record<string, { values: string[] }>;
     expect(variants.size).toBeDefined();
-    expect(variants.size.values).toHaveLength(5);
+    expect(variants.size.values).toHaveLength(7);
   });
 
   it("has authority structure=cva, visual=figma", () => {

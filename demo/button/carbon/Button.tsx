@@ -48,11 +48,13 @@ const buttonVariants = cva(
       // Medium node: py-[11px] pl-[16px] pr-[64px] → h-10
       // XL node: pt-[16px] pb-[30px] pl-[16px] pr-[64px] → h-16
       size: {
-        sm: "h-8 items-center",
-        md: "h-10 items-center",
-        lg: "h-12 items-center",
+        xs: "h-6 items-center justify-center",
+        sm: "h-8 items-center justify-center",
+        md: "h-10 items-center justify-center",
+        lg: "h-12 items-center justify-center",
         xl: "h-16 items-start pt-4",
         "2xl": "h-20 items-start pt-4",
+        expressive: "h-12 items-center text-base leading-[22px] tracking-normal justify-center",
       },
       // From Figma "Type" axis
       type: {
@@ -69,11 +71,13 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       // Icon-only buttons are square — size sets both width and height
+      { type: "icon-only", size: "xs", className: "size-6" },
       { type: "icon-only", size: "sm", className: "size-8" },
       { type: "icon-only", size: "md", className: "size-10" },
       { type: "icon-only", size: "lg", className: "size-12" },
       { type: "icon-only", size: "xl", className: "size-16" },
       { type: "icon-only", size: "2xl", className: "size-20" },
+      { type: "icon-only", size: "expressive", className: "size-12" },
     ],
     defaultVariants: {
       kind: "primary",

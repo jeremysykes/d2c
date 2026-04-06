@@ -1,32 +1,54 @@
 {
   "component": "Button",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.2",
   "figmaFileKey": "LIVjw0uC7eSnQAeOETXiv0",
   "figmaNodeId": "1854:1776",
   "variants": {
     "kind": {
-      "values": ["primary", "secondary", "tertiary", "ghost", "danger-primary", "danger-tertiary", "danger-ghost"],
+      "values": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "ghost",
+        "danger-primary",
+        "danger-tertiary",
+        "danger-ghost"
+      ],
       "defaultValue": "primary",
       "type": "string",
-      "description": "Visual style variant of the button"
+      "description": "Visual style variant"
     },
     "size": {
-      "values": ["sm", "md", "lg", "xl", "2xl"],
+      "values": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "expressive"
+      ],
       "defaultValue": "lg",
       "type": "string",
-      "description": "Button size — controls height and padding"
+      "description": "Button size"
     },
     "type": {
-      "values": ["default", "icon-only"],
+      "values": [
+        "default",
+        "icon-only"
+      ],
       "defaultValue": "default",
       "type": "string",
-      "description": "Button type — text with optional icon, or icon only"
+      "description": "Button type"
     },
     "disabled": {
-      "values": ["true", "false"],
+      "values": [
+        "true",
+        "false"
+      ],
       "defaultValue": "false",
       "type": "boolean",
-      "description": "Whether the button is disabled"
+      "description": "Disabled state"
     }
   },
   "slots": [
@@ -38,7 +60,7 @@
     {
       "name": "icon",
       "required": false,
-      "description": "Optional icon element, displayed trailing (right) in default type, centered in icon-only type"
+      "description": "Optional icon element, 16x16px"
     }
   ],
   "tokens": {
@@ -84,6 +106,18 @@
       "dtcgPath": "color.text.primary",
       "category": "color"
     },
+    "spacing.button.padding.left": {
+      "figmaValue": "16px",
+      "codeValue": "16px",
+      "dtcgPath": "spacing.button.padding.left",
+      "category": "spacing"
+    },
+    "spacing.button.padding.right": {
+      "figmaValue": "64px",
+      "codeValue": "64px",
+      "dtcgPath": "spacing.button.padding.right",
+      "category": "spacing"
+    },
     "spacing.button.height.lg": {
       "figmaValue": "48px",
       "codeValue": "48px",
@@ -95,6 +129,24 @@
       "codeValue": "IBM Plex Sans",
       "dtcgPath": "typography.button.font-family",
       "category": "typography"
+    },
+    "typography.button.font-size": {
+      "figmaValue": "14px",
+      "codeValue": "14px",
+      "dtcgPath": "typography.button.font-size",
+      "category": "typography"
+    },
+    "typography.button.line-height": {
+      "figmaValue": "18px",
+      "codeValue": "18px",
+      "dtcgPath": "typography.button.line-height",
+      "category": "typography"
+    },
+    "typography.button.letter-spacing": {
+      "figmaValue": "0.16px",
+      "codeValue": "0.16px",
+      "dtcgPath": "typography.button.letter-spacing",
+      "category": "typography"
     }
   },
   "authority": {
@@ -102,13 +154,6 @@
     "visual": "figma",
     "conflictStrategy": "escalate"
   },
-  "deprecated": {
-    "deprecated": true,
-    "replacedBy": "ActionButton",
-    "migrationGuide": ".d2c/migration-guides/button-to-actionbutton.md",
-    "deprecatedAt": "2026-04-01T00:00:00.000Z",
-    "removalTarget": "2.0.0"
-  },
   "createdAt": "2026-04-01T00:00:00.000Z",
-  "updatedAt": "2026-04-01T00:00:00.000Z"
+  "updatedAt": "2026-04-06T19:13:00.450Z"
 }

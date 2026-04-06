@@ -2,8 +2,6 @@ export const D2C_DEFAULTS = {
   truthStructure: "cva" as const,
   truthVisual: "figma" as const,
   truthConflictStrategy: "escalate" as const,
-  diffThresholdPixel: 0.1,
-  diffThresholdRegion: 15,
   diffThresholdToken: 0,
   viewport: "1440x900",
   figmaWritePreflight: true,
