@@ -190,9 +190,11 @@ A single `--truth-figma` flag applied globally would cause Figma to overwrite Ty
 
 When neither side is clearly right — a new slot added in code that has no Figma equivalent — the `escalate` strategy blocks the pipeline and emits a human-readable conflict report rather than silently choosing. This is the safest default because silent resolution in either direction produces incorrect artifacts that are hard to detect later.
 
-### 2. Three diff thresholds, not one
+### 2. Deterministic structural comparison, not pixel diffing
 
-A single pixel-percentage threshold hides two important failure modes. A 2% delta on a full-bleed component means thousands of changed pixels — a real regression. A 2% delta on a 24×24 icon means eleven pixels — likely subpixel antialiasing noise. The `--diff-threshold-region` flag catches the "one corner changed significantly" case that percentage alone misses. Token delta is treated separately and is always zero because a token value mismatch is never acceptable noise — it means the component is visually incorrect by definition.
+The original validate phase used pixel-level image comparison with configurable thresholds. This failed in practice — cross-renderer differences (Figma vs browser) require loose tolerances that hide real bugs, and same-renderer regression baselines only detect that something changed, not that it's correct. A Carbon Button with broken vertical text alignment and wrong font weight passed all three original gates.
+
+The redesigned validate phase uses deterministic structural comparison: Playwright extracts computed CSS properties from the rendered component and compares them against manifest token values. `fontFamily` is either `"IBM Plex Sans"` or it isn't. `backgroundColor` is either `rgb(15, 98, 254)` or it isn't. No thresholds, no tolerance bands — values match or the gate fails. Token delta remains a separate gate with hard-zero tolerance.
 
 ### 3. Figma write preflight over role-checking
 
@@ -384,7 +386,7 @@ After running the full POC, these are the specific things that demonstrate the d
 
 **The conflict report in step 7** shows the `--truth-structure` / `--truth-visual` split in practice. The skill did not apply a single global rule — it applied different authority logic to different artifact types.
 
-**The three-threshold diff in step 5** shows why a single percentage is insufficient. Open the diff result and look at `pixelDelta` vs `regionDelta` — they tell different stories about the same diff.
+**The structural comparison in step 5** shows deterministic validation in action. Open the diff result and look at the `structural.mismatches` array — each entry shows a specific CSS property, the expected value from Figma, and the actual rendered value.
 
 **The Figma preflight in step 2** shows why role-checking is the wrong abstraction. The preflight tests actual write capability against the actual file, not workspace-level role.
 
@@ -446,7 +448,7 @@ These are honest gaps in the current version of the skill, not planned features.
 
 **component-contracts MCP servers.** The `variant-authority` and `radix-primitives` MCP servers are specified in `mcps/variant-authority.md` and `mcps/radix-primitives.md` but not yet implemented. Manifests are currently read/written as JSON files directly.
 
-**Playwright visual diff execution.** The three-threshold diff strategy is fully specified in `mcps/playwright.md` but not yet wired to live Playwright runs. Baselines and diff results use the schema but are populated by the demo, not by actual screenshot comparison.
+**Playwright structural validation.** The structural comparison gate is specified in `mcps/playwright.md` and `phases/validate.md`. It requires Playwright MCP to extract computed CSS from rendered Storybook stories. The gate definitions are complete; wiring to live Playwright `evaluate()` calls happens when the validate phase runs.
 
 ---
 
