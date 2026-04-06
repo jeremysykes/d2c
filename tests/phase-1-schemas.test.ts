@@ -153,9 +153,19 @@ describe("diff-result.ts", () => {
     expect(content).toMatch(/export\s+(interface|type)\s+DiffResult/);
   });
 
-  it("exports ThresholdResult", () => {
+  it("exports StructuralGateResult", () => {
     const content = readSchema("diff-result.ts");
-    expect(content).toMatch(/export\s+(interface|type)\s+ThresholdResult/);
+    expect(content).toMatch(/export\s+(interface|type)\s+StructuralGateResult/);
+  });
+
+  it("exports StructuralMismatch", () => {
+    const content = readSchema("diff-result.ts");
+    expect(content).toMatch(/export\s+(interface|type)\s+StructuralMismatch/);
+  });
+
+  it("exports TokenGateResult", () => {
+    const content = readSchema("diff-result.ts");
+    expect(content).toMatch(/export\s+(interface|type)\s+TokenGateResult/);
   });
 
   it("exports isDiffResult type guard", () => {
@@ -163,18 +173,30 @@ describe("diff-result.ts", () => {
     expect(content).toMatch(/export\s+function\s+isDiffResult/);
   });
 
-  it("has three gate names: pixel, region, token", () => {
+  it("has structural and token gates, not pixel or region", () => {
     const content = readSchema("diff-result.ts");
-    expect(content).toContain('"pixel"');
-    expect(content).toContain('"region"');
-    expect(content).toContain('"token"');
+    expect(content).toContain("structural");
+    expect(content).toContain("token");
+    expect(content).not.toMatch(/gates\s*:\s*\{[^}]*pixel/s);
+    expect(content).not.toMatch(/gates\s*:\s*\{[^}]*region/s);
   });
 
-  it("ThresholdResult unit includes %, px², count", () => {
+  it("StructuralMismatch has property, expected, actual, severity", () => {
     const content = readSchema("diff-result.ts");
-    expect(content).toContain('"%"');
-    expect(content).toContain('"px²"');
-    expect(content).toContain('"count"');
+    expect(content).toMatch(/property:\s*string/);
+    expect(content).toMatch(/expected:\s*string/);
+    expect(content).toMatch(/actual:\s*string/);
+    expect(content).toMatch(/severity:\s*"error"/);
+  });
+
+  it("DiffResult has figmaReference field", () => {
+    const content = readSchema("diff-result.ts");
+    expect(content).toMatch(/figmaReference:\s*string/);
+  });
+
+  it("DiffResult has storybook field with autoStarted boolean", () => {
+    const content = readSchema("diff-result.ts");
+    expect(content).toMatch(/autoStarted:\s*boolean/);
   });
 });
 

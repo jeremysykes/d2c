@@ -1,26 +1,38 @@
 export interface DiffResult {
   component: string;
-  generatedAt: string;
   viewport: string;
   passed: boolean;
   gates: {
-    pixel: ThresholdResult;
-    region: ThresholdResult;
-    token: ThresholdResult;
+    structural: StructuralGateResult;
+    token: TokenGateResult;
   };
-  screenshots: {
-    baseline: string;
-    current: string;
-    diff?: string;
+  figmaReference: string;
+  storybook: {
+    autoStarted: boolean;
+    url: string;
   };
+  generatedAt: string;
 }
 
-export interface ThresholdResult {
-  name: "pixel" | "region" | "token";
-  threshold: number;
-  actual: number;
+export interface StructuralGateResult {
   passed: boolean;
-  unit: "%" | "px²" | "count";
+  mismatches: StructuralMismatch[];
+}
+
+export interface StructuralMismatch {
+  property: string;
+  expected: string;
+  actual: string;
+  severity: "error";
+  note?: string;
+}
+
+export interface TokenGateResult {
+  threshold: 0;
+  actual: number;
+  unit: "count";
+  passed: boolean;
+  details?: string;
 }
 
 export function isDiffResult(
@@ -30,12 +42,13 @@ export function isDiffResult(
   const v = value as Record<string, unknown>;
   return (
     typeof v.component === "string" &&
-    typeof v.generatedAt === "string" &&
     typeof v.viewport === "string" &&
     typeof v.passed === "boolean" &&
     typeof v.gates === "object" &&
     v.gates !== null &&
-    typeof v.screenshots === "object" &&
-    v.screenshots !== null
+    typeof v.figmaReference === "string" &&
+    typeof v.storybook === "object" &&
+    v.storybook !== null &&
+    typeof v.generatedAt === "string"
   );
 }
