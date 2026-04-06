@@ -24,6 +24,8 @@ d2c/
   .env.example                       ← Required environment variables
   package.json
   tsconfig.json
+  vite.config.ts                     ← Vite config with Tailwind CSS plugin
+  sd.config.ts                       ← Style Dictionary token transform config
 
   .claude/
     skills/
@@ -48,22 +50,45 @@ d2c/
           drift-report.ts
           diff-result.ts
           batch-report.ts
+          token-source.ts            ← Token extraction strategy (Amendment 01)
         config/
           defaults.ts
           thresholds.ts
 
+  .storybook/
+    main.ts                          ← Storybook 10 ESM config
+    preview.ts
+
+  scripts/
+    build-tokens.ts                  ← Style Dictionary token pipeline
+
+  docs/
+    amendments/
+      AMENDMENT-01-figma-plan-constraints.md
+    architecture/
+      figma-api-boundaries.md
+      token-pipeline.md
+
   demo/
-    badge/
-      carbon/                        ← IBM Carbon Badge
-      primer/                        ← GitHub Primer Badge
-      polaris/                       ← Shopify Polaris Badge
+    button/
+      carbon/                        ← IBM Carbon Button
+        consumers/
+          example-consumer.tsx       ← Seeded consumer for retire gate demo
+        fault/
+          button-token-fault.json    ← Seeded drift for maintain demo
+      primer/                        ← GitHub Primer Button
+      polaris/                       ← Shopify Polaris Button
     figma/
-      carbon-badge-spec.json
-      primer-badge-spec.json
-      polaris-badge-spec.json
+      carbon-button-spec.json
+      primer-button-spec.json
+      polaris-button-spec.json
+    scopes/
+      all-buttons.json               ← Batch mode scope manifest
 
   .variant-authority/
-    badge.manifest.json
+    button.manifest.json
+    primer-button.manifest.json
+    polaris-button.manifest.json
 
   .d2c/
     status-registry.json
@@ -256,13 +281,13 @@ Batch failure does not roll back successful components. Each component's state i
 
 ## Demo: three Figma files
 
-The POC demo runs against three Badge components sourced from public design systems.
+The POC demo runs against three Button components sourced from public design systems.
 
 ### Figma file setup (requirement gate — Jeremy provides)
 
 Before the build phase can run, Jeremy must:
 1. Duplicate each community file to his Figma drafts
-2. Isolate the Badge component to its own page
+2. Isolate the Button component to its own page
 3. Convert any hardcoded style values to Figma Variables
 
 Claude Code's role in this process:
@@ -276,9 +301,9 @@ Claude Code's role in this process:
 
 | System | Community file | Notes |
 |---|---|---|
-| IBM Carbon | [Figma Community](https://www.figma.com/community/file/1157761560874207208) | Tag component |
-| GitHub Primer | [Figma Community](https://www.figma.com/community/file/1385590547343089046) | Label/Badge |
-| Shopify Polaris | [Figma Community](https://www.figma.com/community/file/1293611962095941078) | Badge |
+| IBM Carbon | [Figma Community](https://www.figma.com/community/file/1157761560874207208) | Button component |
+| GitHub Primer | [Figma Community](https://www.figma.com/community/file/1385590547343089046) | Button |
+| Shopify Polaris | [Figma Community](https://www.figma.com/community/file/1293611962095941078) | Button |
 
 Claude Code must surface a requirement gate when it needs the duplicated file URLs from Jeremy. Do not proceed with extraction until URLs are provided.
 
@@ -310,6 +335,32 @@ STORYBOOK_URL=http://localhost:6006
 
 The `.env.example` comment for `FIGMA_ACCESS_TOKEN` must include the exact URL:
 `https://www.figma.com/settings → Security → Personal access tokens`
+
+---
+
+## Amendment 01 — Figma plan constraints
+
+The Figma Variables REST API is Enterprise-only. This amendment documents the token extraction strategy for Pro plan users.
+
+### Token source strategy
+
+The `TOKEN_SOURCE` environment variable controls token extraction:
+
+| Value | Behavior |
+|---|---|
+| `auto` (default) | Uses Tokens Studio export if present, falls back to pre-sourced DTCG files |
+| `tokens-studio` | Requires Tokens Studio export — errors if not found |
+| `presourced` | Uses committed DTCG JSON files from open-source repos |
+
+### Additional schema
+
+Phase 1 includes a 6th schema: `token-source.ts` — defines the `TokenSource` type and `TokenResolutionResult` interface for token extraction strategy resolution.
+
+### Additional build infrastructure
+
+- `sd.config.ts` — Style Dictionary configuration for DTCG → CSS/TypeScript token transforms
+- `scripts/build-tokens.ts` — Token pipeline build script
+- `vite.config.ts` — Vite configuration with Tailwind CSS plugin
 
 ---
 
@@ -400,13 +451,13 @@ When `component-contracts` is not yet available, surface a requirement gate. Do 
 
 ## Seeded fault for demo
 
-After the Badge build phase completes, Claude Code must generate a seeded fault file at:
+After the Button build phase completes, Claude Code must generate a seeded fault file at:
 
 ```
-demo/badge/carbon/fault/badge-token-fault.json
+demo/button/carbon/fault/button-token-fault.json
 ```
 
-This file contains a modified version of `badge.tokens.json` with one token value intentionally changed. It is used in step 6 of the README "Try it yourself" section. The README instructs reviewers to copy this file over `badge.tokens.json` to trigger the drift detection demo.
+This file contains a modified version of `button.tokens.json` with one token value intentionally changed. It is used in step 6 of the README "Try it yourself" section. The README instructs reviewers to copy this file over `button.tokens.json` to trigger the drift detection demo.
 
 Claude Code must generate this fault file automatically as part of the build phase — it is not a manual step.
 
@@ -449,16 +500,16 @@ Claude Code must build this project in the following order. Do not skip ahead. E
 1. `config/defaults.ts`
 2. `config/thresholds.ts`
 
-### Phase 5 — Demo: Carbon Badge
+### Phase 5 — Demo: Carbon Button
 1. Figma extraction → variable-binding checklist → requirement gate
 2. Build phase execution
 3. Validate phase execution
 4. Seeded fault file generation
 
-### Phase 6 — Demo: Primer Badge
+### Phase 6 — Demo: Primer Button
 Same sequence as Phase 5.
 
-### Phase 7 — Demo: Polaris Badge
+### Phase 7 — Demo: Polaris Button
 Same sequence as Phase 5.
 
 ### Phase 8 — Batch mode
@@ -467,7 +518,7 @@ Same sequence as Phase 5.
 3. CI integration
 
 ### Phase 9 — Retire phase demo
-Badge → StatusBadge deprecation scenario.
+Button → ActionButton deprecation scenario.
 
 ### Phase 10 — README finalization
 Verify all links, Storybook URL, and live demo references are accurate.
