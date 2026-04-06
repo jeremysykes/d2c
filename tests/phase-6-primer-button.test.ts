@@ -126,9 +126,9 @@ describe("Primer Button component", () => {
     expect(content).toContain("invisible");
   });
 
-  it("uses CSS custom properties for colors", () => {
+  it("imports generated token CSS", () => {
     const content = readFile("demo/button/primer/Button.tsx");
-    expect(content).toContain("var(--primer-");
+    expect(content).toContain("tokens/generated/variables.css");
   });
 });
 

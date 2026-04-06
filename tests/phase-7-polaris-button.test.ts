@@ -59,7 +59,7 @@ describe("Polaris Button component", () => {
   it("imports cva", () => expect(readFile("demo/button/polaris/Button.tsx")).toMatch(/from\s+["']class-variance-authority["']/));
   it("has primary variant", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("primary"));
   it("has critical tone", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("critical"));
-  it("uses CSS custom properties for colors", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("var(--polaris-"));
+  it("imports generated token CSS", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("tokens/generated/variables.css"));
 });
 
 describe("Polaris Button stories", () => {

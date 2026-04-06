@@ -2,46 +2,103 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode, ButtonHTMLAttributes } from "react";
 import "./tokens/generated/variables.css";
 
+/**
+ * Primer Button — styles sourced from Figma MCP extraction (node 30258:5709).
+ *
+ * Figma source values:
+ * - primary bg: var(--button/primary/bgcolor/rest, #1f883d)
+ * - primary border: var(--button/primary/bordercolor/rest, rgba(31,35,40,0.15))
+ * - border-radius: var(--borderRadius-medium, 6px)
+ * - gap: var(--control/medium/gap, 8px)
+ * - padding: 6px vertical, 12px horizontal (var(--control/medium/paddingInline/normal))
+ * - font: SF Pro Text / system sans-serif, Semibold, 14px/20px
+ * - shadow: 0 1px 0 0 rgba(31,35,40,0.04)
+ * - text: var(--button/primary/fgcolor/rest, white)
+ * - icon: 16x16
+ */
+
 const buttonVariants = cva(
   [
     "primer-btn",
+    "relative",
     "inline-flex",
     "items-center",
-    "gap-[var(--primer-spacing-button-gap)]",
-    "font-[var(--primer-typography-button-font-family)]",
-    "font-[number:var(--primer-typography-button-font-weight)]",
-    "text-[length:var(--primer-typography-button-font-size)]",
-    "leading-[var(--primer-typography-button-line-height)]",
+    "justify-center",
+    "gap-2",
     "rounded-md",
     "border",
+    "border-solid",
+    "text-sm",
+    "leading-5",
+    "font-semibold",
     "cursor-pointer",
+    "select-none",
     "transition-colors",
+    "duration-100",
+    "px-3",
+    "py-1.5",
   ],
   {
     variants: {
       variant: {
-        default:
-          "bg-[var(--primer-color-button-default-background)] text-[var(--primer-color-text-primary)] border-[var(--primer-color-border-default)] hover:bg-[var(--primer-color-button-default-hover)] active:bg-[var(--primer-color-button-default-active)]",
-        primary:
-          "bg-[var(--primer-color-button-primary-background)] text-[var(--primer-color-text-on-emphasis)] border-transparent hover:bg-[var(--primer-color-button-primary-hover)] active:bg-[var(--primer-color-button-primary-active)]",
-        danger:
-          "bg-[var(--primer-color-button-danger-background)] text-[var(--primer-color-button-danger-foreground)] border-[var(--primer-color-border-default)] hover:bg-[var(--primer-color-button-danger-hover)] hover:text-[var(--primer-color-text-on-emphasis)] hover:border-transparent active:bg-[var(--primer-color-button-danger-active)] active:text-[var(--primer-color-text-on-emphasis)]",
-        outline:
-          "bg-[var(--primer-color-button-outline-background)] text-[var(--primer-color-button-outline-foreground)] border-[var(--primer-color-border-default)] hover:bg-[var(--primer-color-button-outline-hover)] hover:text-[var(--primer-color-text-on-emphasis)] hover:border-transparent active:bg-[var(--primer-color-button-outline-active)] active:text-[var(--primer-color-text-on-emphasis)]",
-        invisible:
-          "bg-[var(--primer-color-button-invisible-background)] text-[var(--primer-color-text-primary)] border-transparent hover:bg-[var(--primer-color-button-invisible-hover)] active:bg-[var(--primer-color-button-invisible-active)]",
+        default: [
+          "bg-[#f6f8fa]",
+          "text-[#25292e]",
+          "border-[rgba(31,35,40,0.15)]",
+          "shadow-[0_1px_0_0_rgba(31,35,40,0.04)]",
+          "hover:bg-[#f3f4f6]",
+          "active:bg-[#ebecef]",
+        ].join(" "),
+        primary: [
+          "bg-[#1f883d]",
+          "text-white",
+          "border-[rgba(31,35,40,0.15)]",
+          "shadow-[0_1px_0_0_rgba(31,35,40,0.04)]",
+          "hover:bg-[#1a7f37]",
+          "active:bg-[#197935]",
+        ].join(" "),
+        danger: [
+          "bg-[#f6f8fa]",
+          "text-[#cf222e]",
+          "border-[rgba(31,35,40,0.15)]",
+          "shadow-[0_1px_0_0_rgba(31,35,40,0.04)]",
+          "hover:bg-[#a40e26]",
+          "hover:text-white",
+          "hover:border-[rgba(31,35,40,0.15)]",
+          "active:bg-[#82071e]",
+          "active:text-white",
+        ].join(" "),
+        outline: [
+          "bg-[#f6f8fa]",
+          "text-[#0969da]",
+          "border-[rgba(31,35,40,0.15)]",
+          "shadow-[0_1px_0_0_rgba(31,35,40,0.04)]",
+          "hover:bg-[#0969da]",
+          "hover:text-white",
+          "hover:border-[rgba(31,35,40,0.15)]",
+          "active:bg-[#0757ba]",
+          "active:text-white",
+        ].join(" "),
+        invisible: [
+          "bg-transparent",
+          "text-[#0969da]",
+          "border-transparent",
+          "shadow-none",
+          "hover:bg-[rgba(208,215,222,0.32)]",
+          "active:bg-[rgba(208,215,222,0.48)]",
+        ].join(" "),
       },
       size: {
-        sm: "h-[var(--primer-spacing-button-height-sm)] px-[var(--primer-spacing-button-padding-horizontal-sm)] py-0 text-xs",
-        md: "h-[var(--primer-spacing-button-height-md)] px-[var(--primer-spacing-button-padding-horizontal)] py-0",
-        lg: "h-[var(--primer-spacing-button-height-lg)] px-[var(--primer-spacing-button-padding-horizontal)] py-0",
+        sm: "h-7 px-2 py-[3px] text-xs",
+        md: "h-8 px-3 py-1.5",
+        lg: "h-10 px-4 py-[10px]",
       },
       block: {
-        true: "w-full justify-center",
+        true: "w-full",
         false: "",
       },
       disabled: {
-        true: "bg-[var(--primer-color-button-disabled-background)] text-[var(--primer-color-text-disabled)] border-[var(--primer-color-border-default)] cursor-not-allowed hover:bg-[var(--primer-color-button-disabled-background)] active:bg-[var(--primer-color-button-disabled-background)]",
+        true: "bg-[#f6f8fa] text-[#8c959f] border-[rgba(31,35,40,0.15)] cursor-not-allowed opacity-50 hover:bg-[#f6f8fa] active:bg-[#f6f8fa]",
         false: "",
       },
     },
@@ -61,11 +118,13 @@ export interface ButtonProps
     ButtonVariants {
   label: string;
   leadingVisual?: ReactNode;
+  trailingVisual?: ReactNode;
 }
 
 export function Button({
   label,
   leadingVisual,
+  trailingVisual,
   variant,
   size,
   block,
@@ -77,14 +136,23 @@ export function Button({
     <button
       className={buttonVariants({ variant, size, block, disabled, className })}
       disabled={disabled || undefined}
+      style={{
+        fontFamily:
+          "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif",
+      }}
       {...props}
     >
       {leadingVisual && (
-        <span className="primer-btn__leading-visual w-4 h-4">
+        <span className="primer-btn__leading-visual shrink-0 size-4 flex items-center justify-center overflow-clip">
           {leadingVisual}
         </span>
       )}
-      <span className="primer-btn__label">{label}</span>
+      <span className="primer-btn__label whitespace-nowrap">{label}</span>
+      {trailingVisual && (
+        <span className="primer-btn__trailing-visual shrink-0 size-4 flex items-center justify-center overflow-clip">
+          {trailingVisual}
+        </span>
+      )}
     </button>
   );
 }
