@@ -2,7 +2,7 @@
   "component": "PolarisButton",
   "version": "0.1.0",
   "figmaFileKey": "QoLsm4KFD0ncjo9C1ycTVb",
-  "figmaNodeId": "",
+  "figmaNodeId": "37:12833",
   "variants": {
     "variant": {
       "values": ["primary", "secondary", "tertiary", "plain", "monochromePlain"],

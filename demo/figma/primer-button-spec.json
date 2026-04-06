@@ -2,21 +2,27 @@
   "component": "PrimerButton",
   "source": "figma",
   "fileKey": "eqUohNd2pv50OCWlCRos76",
-  "nodeId": "",
+  "nodeId": "30258:5582",
   "fileName": "Primer Web (Community) - Copy",
   "description": "Buttons allow users to take actions and make choices with a single tap or click.",
   "documentationUrl": "https://primer.style/product/components/button/",
   "variants": {
-    "Variant": {
-      "values": ["Default", "Primary", "Danger", "Outline", "Invisible"],
+    "variant": {
+      "values": ["secondary", "primary", "danger", "invisible"],
+      "type": "VARIANT",
+      "note": "Primer Figma uses 'secondary' as the default variant, not 'default'"
+    },
+    "size": {
+      "values": ["small", "medium", "large"],
+      "type": "VARIANT",
+      "dimensions": { "small": "56x28", "medium": "71x32", "large": "79x40" }
+    },
+    "state": {
+      "values": ["rest", "hover", "pressed", "focus", "disabled", "inactive"],
       "type": "VARIANT"
     },
-    "Size": {
-      "values": ["Small", "Medium", "Large"],
-      "type": "VARIANT"
-    },
-    "State": {
-      "values": ["Rest", "Hover", "Active", "Focus", "Disabled"],
+    "alignContent": {
+      "values": ["center", "start"],
       "type": "VARIANT"
     }
   },
@@ -26,6 +32,8 @@
     "fgColor-default": "#25292e",
     "fgColor-onEmphasis": "#ffffff"
   },
-  "extractedAt": "2026-04-01T00:00:00.000Z",
-  "note": "File key populated. Node ID requires browsing the file — Figma MCP search returns library components, not file-internal node IDs for community copies."
+  "extractedAt": "2026-04-06T00:00:00.000Z",
+  "extractionMethod": "figma-mcp-get_design_context",
+  "totalVariantCombinations": 144,
+  "note": "Live extraction from Figma MCP. 4 variants × 3 sizes × 6 states × 2 alignContent."
 }

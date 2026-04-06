@@ -2,7 +2,7 @@
   "component": "PrimerButton",
   "version": "0.1.0",
   "figmaFileKey": "eqUohNd2pv50OCWlCRos76",
-  "figmaNodeId": "",
+  "figmaNodeId": "30258:5582",
   "variants": {
     "variant": {
       "values": ["default", "primary", "danger", "outline", "invisible"],

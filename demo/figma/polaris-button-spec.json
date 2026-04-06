@@ -2,35 +2,56 @@
   "component": "PolarisButton",
   "source": "figma",
   "fileKey": "QoLsm4KFD0ncjo9C1ycTVb",
-  "nodeId": "",
+  "nodeId": "37:12833",
   "fileName": "Polaris UI Kit - Community (Community) - Copy",
   "description": "Buttons are used to initialize an action. Button labels express what action will occur when the user interacts with it.",
   "documentationUrl": "https://polaris.shopify.com/components/actions/button",
   "variants": {
-    "Variant": {
-      "values": ["Primary", "Secondary", "Tertiary", "Plain", "Monochrome plain"],
+    "variant": {
+      "values": ["auto", "primary", "tertiary"],
+      "type": "VARIANT",
+      "note": "Polaris Figma uses 'auto' as the default variant (maps to 'secondary' in our code)"
+    },
+    "tone": {
+      "values": ["neutral", "critical"],
       "type": "VARIANT"
     },
-    "Tone": {
-      "values": ["Default", "Success", "Critical"],
-      "type": "VARIANT"
+    "disabled": {
+      "values": ["true", "false"],
+      "type": "BOOLEAN"
     },
-    "Size": {
-      "values": ["Micro", "Slim", "Medium", "Large"],
-      "type": "VARIANT"
-    },
-    "State": {
-      "values": ["Default", "Hover", "Active", "Focus", "Disabled"],
-      "type": "VARIANT"
+    "iconOnly": {
+      "values": ["true", "false"],
+      "type": "BOOLEAN"
     }
   },
   "tokens": {
-    "bg-fill-brand": "#303030",
-    "bg-fill-critical": "#e51c00",
-    "bg-fill-success": "#29845a",
-    "text-brand-on-bg-fill": "#ffffff",
-    "text-primary": "#303030"
+    "--s-button/s-button-disabled": "rgba(0,0,0,0.05)",
+    "--s-text/s-text-base": "#303030",
+    "--s-text/s-text-critical": "#8e0b21",
+    "--s-text/s-text-disabled": "#b5b5b5",
+    "--s-button/s-button-text-on-primary": "white",
+    "--p-border-radius-200": "8px",
+    "--p-sapce-050": "2px",
+    "--p-sapce-150": "6px",
+    "--p-sapce-300": "12px"
   },
-  "extractedAt": "2026-04-01T00:00:00.000Z",
-  "note": "File key populated. Node ID requires browsing the file — Figma MCP search returns library components, not file-internal node IDs for community copies."
+  "typography": {
+    "TextSm/Medium": {
+      "fontFamily": "Inter Variable",
+      "fontWeight": 550,
+      "fontSize": "12px",
+      "lineHeight": "16px"
+    },
+    "TextSm/Semibold": {
+      "fontFamily": "Inter Variable",
+      "fontWeight": 600,
+      "fontSize": "12px",
+      "lineHeight": "16px"
+    }
+  },
+  "extractedAt": "2026-04-06T00:00:00.000Z",
+  "extractionMethod": "figma-mcp-get_design_context",
+  "totalVariantCombinations": 24,
+  "note": "Live extraction from Figma MCP. 3 variants × 2 tones × 2 disabled × 2 iconOnly. Primary uses gradient overlays for depth."
 }
