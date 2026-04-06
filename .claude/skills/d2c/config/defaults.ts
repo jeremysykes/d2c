@@ -9,6 +9,7 @@ export const D2C_DEFAULTS = {
   figmaWritePreflight: true,
   framework: "react" as const,
   forceRetire: false,
+  runAll: false,
   preflightOnly: false,
   tokenSource: "auto" as const,
   storybookUrl: "http://localhost:6006",
