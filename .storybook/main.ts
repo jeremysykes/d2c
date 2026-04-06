@@ -7,4 +7,21 @@ export default defineMain({
   typescript: {
     reactDocgen: "react-docgen",
   },
+  viteFinal: (config) => {
+    return {
+      ...config,
+      optimizeDeps: {
+        ...config.optimizeDeps,
+        include: [
+          ...(config.optimizeDeps?.include ?? []),
+          "react",
+          "react-dom",
+          "react-dom/client",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime",
+        ],
+        force: true,
+      },
+    };
+  },
 });
