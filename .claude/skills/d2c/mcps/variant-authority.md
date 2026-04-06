@@ -82,8 +82,8 @@ When the retire phase runs, the Variant Authority records the deprecation:
 {
   "deprecated": {
     "deprecated": true,
-    "replacedBy": "StatusBadge",
-    "migrationGuide": ".d2c/migration-guides/badge-to-statusbadge.md",
+    "replacedBy": "ActionButton",
+    "migrationGuide": ".d2c/migration-guides/button-to-actionbutton.md",
     "deprecatedAt": "2026-04-01T00:00:00.000Z",
     "removalTarget": "2.0.0"
   }

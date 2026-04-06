@@ -49,11 +49,11 @@ Storybook 10 introduces CSF factories as the preferred TypeScript story format. 
 
 ```typescript
 import { config } from '#.storybook/preview';
-import { Badge } from './Badge';
+import { Button } from './Button';
 
 const { story, meta } = config.meta({
-  component: Badge,
-  title: 'Components/Badge',
+  component: Button,
+  title: 'Components/Button',
   parameters: {
     status: { type: 'beta' }  // lifecycle status
   }

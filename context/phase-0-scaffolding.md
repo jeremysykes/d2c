@@ -17,7 +17,7 @@ None yet. The `schemas/` directory is created empty; schemas are implemented in 
 - **None** — Phase 0 is the foundation. All subsequent phases depend on it.
 - Phase 1 (Schemas) depends on `tsconfig.json` being configured correctly for TypeScript compilation.
 - Phase 2 (SKILL.md) depends on `.claude/skills/d2c/` directory structure existing.
-- Phases 5-7 (Demo Badges) depend on `demo/` directory structure existing.
+- Phases 5-7 (Demo Buttons) depend on `demo/` directory structure existing.
 
 ## Key decisions
 

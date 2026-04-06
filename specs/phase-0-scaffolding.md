@@ -85,9 +85,9 @@ All directories created empty (with `.gitkeep` where needed):
 .claude/skills/d2c/mcps/
 .claude/skills/d2c/schemas/
 .claude/skills/d2c/config/
-demo/badge/carbon/
-demo/badge/primer/
-demo/badge/polaris/
+demo/button/carbon/
+demo/button/primer/
+demo/button/polaris/
 demo/figma/
 .variant-authority/
 .d2c/diff-baseline/

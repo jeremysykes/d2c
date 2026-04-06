@@ -22,7 +22,7 @@ The canonical component contract. Written by the Design phase, read by every sub
 
 ```typescript
 VariantManifest {
-  component: string              // Component name (e.g., "Badge")
+  component: string              // Component name (e.g., "Button")
   version: string                // Semver (e.g., "0.1.0")
   figmaFileKey: string           // Figma file key for source
   figmaNodeId: string            // Figma node ID for component
@@ -51,7 +51,7 @@ SlotDefinition {
 TokenBinding {
   figmaValue: string             // Value from Figma
   codeValue: string              // Value in code
-  dtcgPath: string               // DTCG token path (e.g., "color.badge.info.background")
+  dtcgPath: string               // DTCG token path (e.g., "color.button.primary.background")
   category: "color" | "spacing" | "typography" | "border" | "shadow" | "opacity"
 }
 

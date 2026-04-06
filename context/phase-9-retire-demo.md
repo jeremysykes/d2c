@@ -14,6 +14,6 @@
 
 ## Key decisions
 
-- **Button → ActionButton** (not Badge → StatusBadge): Changed to match the Button demo component.
+- **Button → ActionButton** (renamed from Badge → StatusBadge): Changed to match the Button demo component.
 - **Blocked by seeded consumer**: Demo intentionally leaves Button in "deprecated" not "retired" to show the removal gate blocking behavior.
 - **Codemod is a scaffold**: The codemod shows the pattern but doesn't implement a full AST transform — that would require jscodeshift as a dependency which is out of scope for a demo.
