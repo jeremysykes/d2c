@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 
+/**
+ * Stories sourced from Figma component set 37:12833.
+ *
+ * Figma variant axes:
+ * - Variant: auto, primary, tertiary
+ * - Tone: neutral, critical
+ * - Disabled: true, false
+ * - Icon only: true, false
+ */
+
 const meta = {
   title: "Polaris/Button",
   component: Button,
@@ -10,79 +20,52 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "tertiary", "plain", "monochromePlain"],
+      // From Figma "Variant" axis
+      options: ["auto", "primary", "tertiary"],
     },
     tone: {
       control: "select",
-      options: ["default", "success", "critical"],
+      // From Figma "Tone" axis
+      options: ["neutral", "critical"],
     },
-    size: {
-      control: "select",
-      options: ["micro", "slim", "medium", "large"],
-    },
-    fullWidth: { control: "boolean" },
     disabled: { control: "boolean" },
+    iconOnly: { control: "boolean" },
   },
   args: {
-    label: "Button",
+    label: "Label",
     disabled: false,
-    fullWidth: false,
+    iconOnly: false,
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+// --- Figma "Variant" axis ---
+export const Auto: Story = { args: { variant: "auto" } };
+export const Primary: Story = { args: { variant: "primary" } };
+export const Tertiary: Story = { args: { variant: "tertiary" } };
 
-export const Primary: Story = {
-  args: { variant: "primary" },
+// --- Figma "Variant" × "Tone" combinations ---
+export const AutoCritical: Story = { args: { variant: "auto", tone: "critical" } };
+export const PrimaryCritical: Story = { args: { variant: "primary", tone: "critical" } };
+export const TertiaryCritical: Story = { args: { variant: "tertiary", tone: "critical" } };
+
+// --- Figma "Icon only" axis ---
+export const IconOnly: Story = {
+  args: {
+    iconOnly: true,
+    icon: <span style={{ fontSize: 14 }} aria-hidden>⟳</span>,
+  },
+};
+export const PrimaryIconOnly: Story = {
+  args: {
+    variant: "primary",
+    iconOnly: true,
+    icon: <span style={{ fontSize: 14 }} aria-hidden>⟳</span>,
+  },
 };
 
-export const Secondary: Story = {
-  args: { variant: "secondary" },
-};
-
-export const Tertiary: Story = {
-  args: { variant: "tertiary" },
-};
-
-export const Plain: Story = {
-  args: { variant: "plain" },
-};
-
-export const MonochromePlain: Story = {
-  args: { variant: "monochromePlain" },
-};
-
-export const PrimaryCritical: Story = {
-  args: { variant: "primary", tone: "critical" },
-};
-
-export const PrimarySuccess: Story = {
-  args: { variant: "primary", tone: "success" },
-};
-
-export const Micro: Story = {
-  args: { size: "micro" },
-};
-
-export const Slim: Story = {
-  args: { size: "slim" },
-};
-
-export const Medium: Story = {
-  args: { size: "medium" },
-};
-
-export const Large: Story = {
-  args: { size: "large" },
-};
-
-export const FullWidth: Story = {
-  args: { fullWidth: true },
-};
-
-export const Disabled: Story = {
-  args: { disabled: true },
-};
+// --- Figma "Disabled" axis ---
+export const Disabled: Story = { args: { disabled: true } };
+export const PrimaryDisabled: Story = { args: { variant: "primary", disabled: true } };

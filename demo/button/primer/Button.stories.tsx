@@ -1,6 +1,16 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 
+/**
+ * Stories sourced from Figma component set 30258:5582.
+ *
+ * Figma variant axes:
+ * - variant: secondary, primary, danger, invisible
+ * - size: small, medium, large
+ * - state: rest, hover, pressed, focus, disabled, inactive
+ * - alignContent: center, start
+ */
+
 const meta = {
   title: "Primer/Button",
   component: Button,
@@ -10,14 +20,21 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "primary", "danger", "outline", "invisible"],
+      // From Figma "variant" axis
+      options: ["secondary", "primary", "danger", "invisible"],
     },
     size: {
       control: "select",
+      // From Figma "size" axis
       options: ["sm", "md", "lg"],
     },
-    block: { control: "boolean" },
+    alignContent: {
+      control: "select",
+      // From Figma "alignContent" axis
+      options: ["center", "start"],
+    },
     disabled: { control: "boolean" },
+    block: { control: "boolean" },
   },
   args: {
     label: "Button",
@@ -29,46 +46,19 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+// --- Figma "variant" axis ---
+export const Secondary: Story = { args: { variant: "secondary" } };
+export const Primary: Story = { args: { variant: "primary" } };
+export const Danger: Story = { args: { variant: "danger" } };
+export const Invisible: Story = { args: { variant: "invisible" } };
 
-export const Primary: Story = {
-  args: { variant: "primary" },
-};
+// --- Figma "size" axis ---
+export const Small: Story = { args: { size: "sm" } };
+export const Medium: Story = { args: { size: "md" } };
+export const Large: Story = { args: { size: "lg" } };
 
-export const Danger: Story = {
-  args: { variant: "danger" },
-};
+// --- Figma "alignContent" axis ---
+export const AlignStart: Story = { args: { alignContent: "start" } };
 
-export const Outline: Story = {
-  args: { variant: "outline" },
-};
-
-export const Invisible: Story = {
-  args: { variant: "invisible" },
-};
-
-export const Small: Story = {
-  args: { size: "sm" },
-};
-
-export const Medium: Story = {
-  args: { size: "md" },
-};
-
-export const Large: Story = {
-  args: { size: "lg" },
-};
-
-export const Block: Story = {
-  args: { block: true },
-};
-
-export const Disabled: Story = {
-  args: { disabled: true },
-};
-
-export const WithLeadingVisual: Story = {
-  args: {
-    leadingVisual: <span aria-hidden>★</span>,
-  },
-};
+// --- Figma "state=disabled" ---
+export const Disabled: Story = { args: { disabled: true } };

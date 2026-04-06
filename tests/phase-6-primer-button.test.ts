@@ -118,11 +118,11 @@ describe("Primer Button component", () => {
     expect(content).toMatch(/from\s+["']class-variance-authority["']/);
   });
 
-  it("has 5 variant values", () => {
+  it("has Figma variant values", () => {
     const content = readFile("demo/button/primer/Button.tsx");
     expect(content).toContain("primary");
+    expect(content).toContain("secondary");
     expect(content).toContain("danger");
-    expect(content).toContain("outline");
     expect(content).toContain("invisible");
   });
 

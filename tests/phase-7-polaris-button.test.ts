@@ -57,6 +57,12 @@ describe("Polaris Figma spec", () => {
 describe("Polaris Button component", () => {
   it("exists", () => expect(fileExists("demo/button/polaris/Button.tsx")).toBe(true));
   it("imports cva", () => expect(readFile("demo/button/polaris/Button.tsx")).toMatch(/from\s+["']class-variance-authority["']/));
+  it("has Figma variant values", () => {
+    const c = readFile("demo/button/polaris/Button.tsx");
+    expect(c).toContain("auto");
+    expect(c).toContain("primary");
+    expect(c).toContain("tertiary");
+  });
   it("has primary variant", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("primary"));
   it("has critical tone", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("critical"));
   it("imports generated token CSS", () => expect(readFile("demo/button/polaris/Button.tsx")).toContain("tokens/generated/variables.css"));
