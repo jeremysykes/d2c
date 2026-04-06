@@ -110,8 +110,6 @@ All flags can be set at invocation or stored in `.d2c/config.json` at the repo r
 | `--truth-structure` | `cva` | Authority for variant names, slots, prop types. `figma` or `cva`. |
 | `--truth-visual` | `figma` | Authority for tokens, spacing, visual spec. `figma` or `cva`. |
 | `--truth-conflict-strategy` | `escalate` | What to do when neither side is clearly right. `escalate` blocks and emits a diff report. `figma-wins` or `cva-wins` for automated resolution. |
-| `--diff-threshold-pixel` | `0.1` | Max percentage of changed pixels allowed. |
-| `--diff-threshold-region` | `15` | Max contiguous changed region in px². Catches corner-only regressions that percentage misses. |
 | `--diff-threshold-token` | `0` | Token value mismatches allowed. Always zero — no override. |
 | `--viewport` | `1440x900` | Locked viewport for all Playwright captures. |
 | `--figma-write-preflight` | `true` | Attempt a no-op Figma write before any phase that requires write access. Fails fast with a clear error rather than mid-pipeline. |
@@ -130,8 +128,6 @@ All flags can be set at invocation or stored in `.d2c/config.json` at the repo r
   --truth-structure cva \
   --truth-visual figma \
   --truth-conflict-strategy escalate \
-  --diff-threshold-pixel 0.1 \
-  --diff-threshold-region 15 \
   --viewport 1440x900 \
   --figma-write-preflight true \
   --run-all
@@ -325,10 +321,9 @@ Establish Playwright baselines and run all three validation gates:
 /d2c --component Button --phase validate
 ```
 
-Open `.d2c/diff-results/button-latest.json`. All three gates should pass:
-- `pixelDelta` below `0.1`
-- `regionDelta` below `15`
-- `tokenDelta` equal to `0`
+Open `.d2c/diff-results/button-latest.json`. Both gates should pass:
+- `structural.passed` is `true` (all computed CSS properties match manifest tokens)
+- `token.actual` equal to `0` (no token mismatches)
 
 ### 6. Trigger a drift
 

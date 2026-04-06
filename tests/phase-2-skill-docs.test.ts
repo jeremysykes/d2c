@@ -63,14 +63,14 @@ describe("SKILL.md", () => {
     expect(content).toContain("--truth-visual");
   });
 
-  it("documents --diff-threshold-pixel flag", () => {
+  it("does not document removed --diff-threshold-pixel flag", () => {
     const content = readFile("SKILL.md");
-    expect(content).toContain("--diff-threshold-pixel");
+    expect(content).not.toContain("--diff-threshold-pixel");
   });
 
-  it("documents --diff-threshold-region flag", () => {
+  it("does not document removed --diff-threshold-region flag", () => {
     const content = readFile("SKILL.md");
-    expect(content).toContain("--diff-threshold-region");
+    expect(content).not.toContain("--diff-threshold-region");
   });
 
   it("documents --diff-threshold-token flag", () => {

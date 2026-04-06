@@ -64,21 +64,21 @@ describe("figma.md", () => {
 // --- playwright.md ---
 
 describe("playwright.md", () => {
-  it("documents pixel threshold", () => {
+  it("documents structural comparison pattern", () => {
     const content = readFile("playwright.md");
-    expect(content).toMatch(/pixel/i);
-    expect(content).toContain("0.1");
+    expect(content).toMatch(/structural/i);
+    expect(content).toMatch(/getComputedStyle|computed/i);
   });
 
-  it("documents region threshold", () => {
+  it("documents CSS extraction", () => {
     const content = readFile("playwright.md");
-    expect(content).toMatch(/region/i);
-    expect(content).toMatch(/px²|px2|square/i);
+    expect(content).toMatch(/backgroundColor|fontFamily|fontSize/);
   });
 
-  it("documents token threshold", () => {
+  it("documents comparison rules", () => {
     const content = readFile("playwright.md");
-    expect(content).toMatch(/token.*0|zero.*token/i);
+    expect(content).toMatch(/color/i);
+    expect(content).toMatch(/font/i);
   });
 
   it("documents locked viewport", () => {

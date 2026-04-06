@@ -76,25 +76,24 @@ describe("defaults.ts", () => {
     const content = readFile("defaults.ts");
     expect(content).not.toMatch(/from\s+['"]\.\.\/schemas/);
   });
+
+  it("does not have diffThresholdPixel", () => {
+    const content = readFile("defaults.ts");
+    expect(content).not.toMatch(/diffThresholdPixel/);
+  });
+
+  it("does not have diffThresholdRegion", () => {
+    const content = readFile("defaults.ts");
+    expect(content).not.toMatch(/diffThresholdRegion/);
+  });
 });
 
 // --- thresholds.ts ---
 
 describe("thresholds.ts", () => {
-  it("exports pixel threshold of 0.1", () => {
-    const content = readFile("thresholds.ts");
-    expect(content).toMatch(/0\.1/);
-  });
-
-  it("exports region threshold of 15", () => {
-    const content = readFile("thresholds.ts");
-    expect(content).toMatch(/15/);
-  });
-
   it("exports token threshold of 0", () => {
     const content = readFile("thresholds.ts");
     expect(content).toMatch(/token/i);
-    // Must contain a 0 value for token threshold
     expect(content).toMatch(/:\s*0[,;\s\n]|=\s*0[,;\s\n]/);
   });
 
@@ -103,15 +102,24 @@ describe("thresholds.ts", () => {
     expect(content).toMatch(/override|immutable|cannot|hard zero/i);
   });
 
-  it("documents threshold units", () => {
+  it("documents token threshold unit as count", () => {
     const content = readFile("thresholds.ts");
-    expect(content).toContain("%");
-    expect(content).toContain("px²");
     expect(content).toContain("count");
   });
 
-  it("does not import from schema files", () => {
+  it("does not export pixel threshold", () => {
     const content = readFile("thresholds.ts");
-    expect(content).not.toMatch(/from\s+['"]\.\.\/schemas/);
+    expect(content).not.toMatch(/PIXEL_THRESHOLD/);
+  });
+
+  it("does not export region threshold", () => {
+    const content = readFile("thresholds.ts");
+    expect(content).not.toMatch(/REGION_THRESHOLD/);
+  });
+
+  it("does not reference % or px² units", () => {
+    const content = readFile("thresholds.ts");
+    expect(content).not.toContain('"%"');
+    expect(content).not.toContain('"px²"');
   });
 });

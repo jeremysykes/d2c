@@ -248,8 +248,6 @@ All flags must be implemented with these exact names and defaults. No deviations
 | `--truth-structure` | `cva` | `figma \| cva` | Authority for variant names, slots, prop types |
 | `--truth-visual` | `figma` | `figma \| cva` | Authority for tokens, spacing, visual spec |
 | `--truth-conflict-strategy` | `escalate` | `escalate \| figma-wins \| cva-wins` | Conflict resolution when authority is ambiguous |
-| `--diff-threshold-pixel` | `0.1` | `number` | Max % of changed pixels |
-| `--diff-threshold-region` | `15` | `number` | Max contiguous changed region in px² |
 | `--diff-threshold-token` | `0` | `number` | Token mismatches allowed. Hard zero, no override. |
 | `--viewport` | `1440x900` | `string` | Locked Playwright viewport |
 | `--figma-write-preflight` | `true` | `boolean` | Preflight check before any Figma write |
