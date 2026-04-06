@@ -1,4 +1,5 @@
 import { defineMain } from "@storybook/react-vite/node";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineMain({
   framework: "@storybook/react-vite",
@@ -10,6 +11,7 @@ export default defineMain({
   viteFinal: (config) => {
     return {
       ...config,
+      plugins: [...(config.plugins ?? []), tailwindcss()],
       optimizeDeps: {
         ...config.optimizeDeps,
         include: [
