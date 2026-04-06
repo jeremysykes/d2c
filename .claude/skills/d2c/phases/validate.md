@@ -1,113 +1,112 @@
 ---
 phase: validate
-description: Run three validation gates — visual diff, token delta, and a11y/interaction tests
+description: Run two deterministic validation gates — structural comparison and token delta
 compatibility: [claude-code, cursor, codex-cli]
 ---
 
 # Validate Phase
 
-Run three independent validation gates. All three must pass for the component to advance past validate. Any failure sets the component to `blocked` status.
+Run two deterministic validation gates. Both must pass for the component to advance past validate. Any failure sets the component to `blocked` status.
 
 ## Required MCP servers
 
-- **Playwright MCP** — screenshot capture and visual diff
-- **Figma MCP** — frame export for comparison
-- **Storybook MCP** — a11y and interaction test execution
+- **Playwright MCP** — render Storybook stories, extract computed CSS
+- **Figma MCP** — frame export for reference screenshot
 
 ## Inputs
 
 - `--component`: Target component name
-- `--diff-threshold-pixel`: Max % of changed pixels (default: 0.1)
-- `--diff-threshold-region`: Max contiguous changed region in px² (default: 15)
 - `--diff-threshold-token`: Token mismatches allowed (default: 0, hard zero, no override)
 - `--viewport`: Locked viewport (default: 1440x900)
 - Variant manifest at `.variant-authority/{component}.manifest.json`
-- Storybook running at `STORYBOOK_URL`
 
 ## Prerequisites
 
 - Component must be in `"build"` status or later
 - Component code and story file must exist
-- Storybook must be running and accessible
 
 ## Steps
 
-### 1. Capture current screenshots
+### 1. Start Storybook if not running
 
-Use Playwright MCP to screenshot each story variant:
+1. Fetch `STORYBOOK_URL` (default: `http://localhost:6006`) to check if Storybook is already running
+2. If not running, spawn `npm run storybook` as a detached child process
+3. Poll the URL every 2 seconds, timeout after 60 seconds
+4. If timeout, fail with error: "Storybook failed to start. Check `npm run storybook` manually."
+5. Track whether the validate phase started Storybook (for cleanup in step 6)
 
-- Navigate to the Storybook URL for each story
-- Set viewport to the configured size (default: 1440x900)
-- Wait for the component to render fully
-- Capture screenshot
-- Save to `.d2c/diff-results/{component}/current/`
+### 2. Gate 1 — Structural comparison
 
-### 2. Gate 1 — Pixel diff
+Use Playwright MCP to navigate to the Storybook story URL for the primary variant. Extract computed CSS properties via `page.evaluate()` and compare against manifest token values.
 
-Compare current screenshots against baselines in `.d2c/diff-baseline/{component}/`:
+**Properties extracted and compared:**
 
-- If no baseline exists (first run), establish the current screenshots as baseline. Gate passes automatically on first run.
-- If baseline exists, compute pixel-level diff
-- Calculate `pixelDelta` as percentage of changed pixels
-- **Pass condition**: `pixelDelta <= --diff-threshold-pixel`
+| Property | Extraction | Compared against |
+|---|---|---|
+| Background color | `getComputedStyle(el).backgroundColor` | Manifest token `color.button.{kind}.background` |
+| Text color | `getComputedStyle(el).color` | Manifest token `color.text.on-color` |
+| Font family | `getComputedStyle(el).fontFamily` | Manifest token `typography.button.font-family` |
+| Font size | `getComputedStyle(el).fontSize` | Manifest token `typography.button.font-size` |
+| Font weight | `getComputedStyle(el).fontWeight` | Figma extraction value (400 = Regular) |
+| Line height | `getComputedStyle(el).lineHeight` | Manifest token `typography.button.line-height` |
+| Letter spacing | `getComputedStyle(el).letterSpacing` | Manifest token `typography.button.letter-spacing` |
+| Padding left | `getComputedStyle(el).paddingLeft` | Manifest token `spacing.button.padding.left` |
+| Padding right | `getComputedStyle(el).paddingRight` | Manifest token `spacing.button.padding.right` |
+| Height | `el.offsetHeight + "px"` | Manifest token `spacing.button.height.{size}` |
+| Vertical alignment | Text `offsetTop` vs button center | Figma layout spec (centered within 2px for center-aligned sizes) |
 
-### 3. Gate 2 — Region diff
+**Comparison rules:**
+- Colors: normalized to RGB, exact match, tolerance of rgb +/-2 per channel for rounding
+- Dimensions: normalized to px, exact match, tolerance of +/-1px for subpixel rounding
+- Font family: string-contains check (computed style returns full font stack)
+- Font weight: numeric comparison (400 = 400)
+- Vertical alignment: text center within 2px of button center
 
-Analyze the diff image for contiguous changed regions:
+**Pass condition:** Zero mismatches with severity `"error"`.
 
-- Identify connected components of changed pixels
-- Calculate the area of the largest contiguous region in px²
-- **Pass condition**: `regionDelta <= --diff-threshold-region`
-
-This catches localized regressions that a global pixel percentage misses (e.g., a corner radius change on a small element).
-
-### 4. Gate 3 — Token delta
+### 3. Gate 2 — Token delta
 
 Compare token values between the variant manifest and the current token source:
 
 - Read token bindings from the variant manifest
-- Read current token values from the resolved token source
+- Read current token values from the resolved token source (DTCG JSON)
 - Count mismatches
-- **Pass condition**: `tokenDelta == 0` (hard zero, no override via flag)
+- **Pass condition**: `tokenDelta == 0` (hard zero, no override)
 
-A token mismatch means the component is visually incorrect by definition — the rendered output cannot match the design spec if the tokens are wrong.
+### 4. Export Figma reference screenshot
 
-### 5. Run Storybook tests
+Call Figma MCP to export the component's primary variant as PNG. Save to `.d2c/diff-results/{component}/figma-reference.png`. This is included in the report for human review — it is not an automated gate.
 
-Use Storybook MCP to run:
+### 5. Evaluate gates
 
-- **Accessibility audit**: Check all stories against WCAG 2.1 AA
-- **Interaction tests**: Run any interaction tests defined in the story file
-
-Report results but do not gate on them for v1 — a11y and interaction results are advisory. They are included in the diff result output for review.
-
-### 6. Evaluate gates
-
-All three gates must pass for the component to advance:
+Both gates must pass for the component to advance:
 
 ```
-passed = gate1.passed AND gate2.passed AND gate3.passed
+passed = gate1.passed AND gate2.passed
 ```
 
 Write the result to `.d2c/diff-results/{component}-latest.json` per the `diff-result.ts` schema.
 
+### 6. Cleanup
+
+If the validate phase started Storybook in step 1, kill the spawned process. Do not kill a pre-existing Storybook instance.
+
 ### 7. Update status registry
 
-- If all gates pass: set status to `"validate"`
-- If any gate fails: set status to `"blocked"` with `blockedReason` listing which gates failed and their delta values
+- If both gates pass: set status to `"validate"`
+- If any gate fails: set status to `"blocked"` with `blockedReason` listing which gate failed and the specific mismatches
 
 ## Output artifacts
 
 | Artifact | Location | Schema |
 |---|---|---|
-| Current screenshots | `.d2c/diff-results/{component}/current/` | — |
-| Diff images | `.d2c/diff-results/{component}/diff/` | — |
+| Figma reference | `.d2c/diff-results/{component}/figma-reference.png` | — |
 | Diff result | `.d2c/diff-results/{component}-latest.json` | `diff-result.ts` |
 | Status registry | `.d2c/status-registry.json` | `status-registry.ts` |
 
 ## Failure modes
 
-- **Storybook not running**: Error with instructions to start Storybook. Provide the STORYBOOK_URL value being used.
-- **Playwright MCP not connected**: Cannot capture screenshots. Error with install instructions.
-- **Baseline missing on non-first run**: If baselines were deleted, treat as first run and establish new baselines with a warning.
+- **Storybook fails to start**: Error after 60s timeout. Provide the `STORYBOOK_URL` value being used and suggest running `npm run storybook` manually.
+- **Playwright MCP not connected**: Cannot extract computed CSS. Error with install instructions.
+- **Font not loaded**: Structural gate will catch this — fontFamily mismatch. Note in report: "Font not loaded — check @font-face or font import."
 - **Token source missing**: Error — run build phase to resolve token source first.
