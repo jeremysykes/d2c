@@ -88,8 +88,8 @@
       ]
     },
     "PolarisButton": {
-      "status": "build",
-      "previousStatus": "alpha",
+      "status": "validate",
+      "previousStatus": "build",
       "updatedAt": "2026-04-06T00:00:00.000Z",
       "updatedBy": "ship",
       "history": [
@@ -141,11 +141,18 @@
           "at": "2026-04-07T00:00:00.000Z",
           "by": "pipeline-integrity",
           "reason": "Rolled back — promoted to alpha without passing structural validation gate via Playwright."
+        },
+        {
+          "from": "build",
+          "to": "validate",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "validate",
+          "reason": "Structural gate PASS: all properties match (bg rgb(48,48,48), font Inter 13px/550, height 32px, centered delta=0px). Token delta: 0/14."
         }
       ]
     },
     "PrimerButton": {
-      "status": "build",
+      "status": "validate",
       "previousStatus": "validate",
       "updatedAt": "2026-04-06T00:00:00.000Z",
       "updatedBy": "ship",
@@ -198,6 +205,13 @@
           "at": "2026-04-07T00:00:00.000Z",
           "by": "pipeline-integrity",
           "reason": "Rolled back — promoted to alpha without passing structural validation gate via Playwright."
+        },
+        {
+          "from": "build",
+          "to": "validate",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "validate",
+          "reason": "Structural gate PASS: all properties match (bg rgb(31,136,61), font system-stack 14px/500, height 32px, centered delta=0px). Token delta: 0/12."
         }
       ]
     }

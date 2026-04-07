@@ -1,0 +1,24 @@
+{
+  "component": "PrimerButton",
+  "viewport": "1440x900",
+  "passed": true,
+  "gates": {
+    "structural": {
+      "passed": true,
+      "mismatches": []
+    },
+    "token": {
+      "threshold": 0,
+      "actual": 0,
+      "unit": "count",
+      "passed": true,
+      "details": "12 tokens checked, 0 mismatches"
+    }
+  },
+  "figmaReference": ".d2c/diff-results/PrimerButton/figma-reference.png",
+  "storybook": {
+    "autoStarted": false,
+    "url": "http://localhost:6006"
+  },
+  "generatedAt": "2026-04-07T00:00:00.000Z"
+}
