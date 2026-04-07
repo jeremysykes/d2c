@@ -1,3 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 @import "tailwindcss";
+
+@theme {
+  /* Carbon semantic colors */
+  --color-cds-primary: var(--cds-primary);
+  --color-cds-primary-hover: var(--cds-primary-hover);
+  --color-cds-primary-active: var(--cds-primary-active);
+  --color-cds-primary-foreground: var(--cds-primary-foreground);
+  --color-cds-secondary: var(--cds-secondary);
+  --color-cds-secondary-hover: var(--cds-secondary-hover);
+  --color-cds-secondary-active: var(--cds-secondary-active);
+  --color-cds-secondary-foreground: var(--cds-secondary-foreground);
+  --color-cds-tertiary: var(--cds-tertiary);
+  --color-cds-tertiary-hover: var(--cds-tertiary-hover);
+  --color-cds-tertiary-active: var(--cds-tertiary-active);
+  --color-cds-tertiary-foreground: var(--cds-tertiary-foreground);
+  --color-cds-ghost: var(--cds-ghost);
+  --color-cds-ghost-hover: var(--cds-ghost-hover);
+  --color-cds-ghost-active: var(--cds-ghost-active);
+  --color-cds-ghost-foreground: var(--cds-ghost-foreground);
+  --color-cds-danger: var(--cds-danger);
+  --color-cds-danger-hover: var(--cds-danger-hover);
+  --color-cds-danger-active: var(--cds-danger-active);
+  --color-cds-danger-foreground: var(--cds-danger-foreground);
+  --color-cds-disabled: var(--cds-disabled);
+  --color-cds-disabled-foreground: var(--cds-disabled-foreground);
+
+  /* Primer semantic colors */
+  --color-primer-primary: var(--primer-primary);
+  --color-primer-primary-hover: var(--primer-primary-hover);
+  --color-primer-primary-active: var(--primer-primary-active);
+  --color-primer-primary-foreground: var(--primer-primary-foreground);
+  --color-primer-secondary: var(--primer-secondary);
+  --color-primer-secondary-hover: var(--primer-secondary-hover);
+  --color-primer-secondary-active: var(--primer-secondary-active);
+  --color-primer-secondary-foreground: var(--primer-secondary-foreground);
+  --color-primer-danger: var(--primer-danger);
+  --color-primer-danger-hover: var(--primer-danger-hover);
+  --color-primer-danger-active: var(--primer-danger-active);
+  --color-primer-danger-foreground: var(--primer-danger-foreground);
+  --color-primer-invisible: var(--primer-invisible);
+  --color-primer-invisible-hover: var(--primer-invisible-hover);
+  --color-primer-invisible-active: var(--primer-invisible-active);
+  --color-primer-invisible-foreground: var(--primer-invisible-foreground);
+  --color-primer-disabled: var(--primer-disabled);
+  --color-primer-disabled-foreground: var(--primer-disabled-foreground);
+
+  /* Polaris semantic colors */
+  --color-polaris-primary: var(--polaris-primary);
+  --color-polaris-primary-hover: var(--polaris-primary-hover);
+  --color-polaris-primary-active: var(--polaris-primary-active);
+  --color-polaris-primary-foreground: var(--polaris-primary-foreground);
+  --color-polaris-secondary: var(--polaris-secondary);
+  --color-polaris-secondary-foreground: var(--polaris-secondary-foreground);
+  --color-polaris-tertiary: var(--polaris-tertiary);
+  --color-polaris-tertiary-hover: var(--polaris-tertiary-hover);
+  --color-polaris-tertiary-active: var(--polaris-tertiary-active);
+  --color-polaris-tertiary-foreground: var(--polaris-tertiary-foreground);
+  --color-polaris-critical: var(--polaris-critical);
+  --color-polaris-critical-foreground: var(--polaris-critical-foreground);
+  --color-polaris-disabled: var(--polaris-disabled);
+  --color-polaris-disabled-foreground: var(--polaris-disabled-foreground);
+}
