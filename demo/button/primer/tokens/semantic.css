@@ -23,7 +23,7 @@
   --primer-invisible: var(--primer-color-button-invisible-background);
   --primer-invisible-hover: var(--primer-color-button-invisible-hover);
   --primer-invisible-active: var(--primer-color-button-invisible-active);
-  --primer-invisible-foreground: var(--primer-color-button-outline-foreground);
+  --primer-invisible-foreground: var(--primer-color-text-primary);
   --primer-invisible-border: var(--primer-color-border-transparent);
 
   --primer-disabled: var(--primer-color-button-disabled-background);
