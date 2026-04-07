@@ -88,10 +88,10 @@
       ]
     },
     "PolarisButton": {
-      "status": "build",
-      "previousStatus": "design",
-      "updatedAt": "2026-04-01T00:00:00.000Z",
-      "updatedBy": "build",
+      "status": "alpha",
+      "previousStatus": "validate",
+      "updatedAt": "2026-04-06T00:00:00.000Z",
+      "updatedBy": "ship",
       "history": [
         {
           "from": "draft",
@@ -106,14 +106,42 @@
           "at": "2026-04-01T00:00:00.000Z",
           "by": "build",
           "reason": "Component scaffolded with CVA variants, tokens pre-sourced from Polaris"
+        },
+        {
+          "from": "build",
+          "to": "design",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "design",
+          "reason": "Re-extracted from Polaris Figma file via live Figma MCP. Variants: auto/primary/tertiary × neutral/critical × iconOnly × disabled."
+        },
+        {
+          "from": "design",
+          "to": "build",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "build",
+          "reason": "Refactored to token variable references. All colors/typography via --polaris-* CSS custom properties."
+        },
+        {
+          "from": "build",
+          "to": "validate",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "validate",
+          "reason": "Token delta: 0/14 mismatches. Structural gate: pending live Playwright verification."
+        },
+        {
+          "from": "validate",
+          "to": "alpha",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "ship",
+          "reason": "Promoted to alpha (0.1.0-alpha.1). Token pipeline fully integrated."
         }
       ]
     },
     "PrimerButton": {
-      "status": "build",
-      "previousStatus": "design",
-      "updatedAt": "2026-04-01T00:00:00.000Z",
-      "updatedBy": "build",
+      "status": "alpha",
+      "previousStatus": "validate",
+      "updatedAt": "2026-04-06T00:00:00.000Z",
+      "updatedBy": "ship",
       "history": [
         {
           "from": "draft",
@@ -128,6 +156,34 @@
           "at": "2026-04-01T00:00:00.000Z",
           "by": "build",
           "reason": "Component scaffolded with CVA variants, tokens pre-sourced from Primer Primitives"
+        },
+        {
+          "from": "build",
+          "to": "design",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "design",
+          "reason": "Re-extracted from Primer Figma file via live Figma MCP. Variants: secondary/primary/danger/invisible × sm/md/lg × center/start × disabled."
+        },
+        {
+          "from": "design",
+          "to": "build",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "build",
+          "reason": "Refactored to token variable references. All colors/typography via --primer-* CSS custom properties."
+        },
+        {
+          "from": "build",
+          "to": "validate",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "validate",
+          "reason": "Token delta: 0/12 mismatches. Structural gate: pending live Playwright verification."
+        },
+        {
+          "from": "validate",
+          "to": "alpha",
+          "at": "2026-04-06T00:00:00.000Z",
+          "by": "ship",
+          "reason": "Promoted to alpha (0.1.0-alpha.1). Token pipeline fully integrated."
         }
       ]
     }

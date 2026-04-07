@@ -1,0 +1,145 @@
+{
+  "component": "PrimerButton",
+  "version": "0.1.0-alpha.1",
+  "figmaFileKey": "eqUohNd2pv50OCWlCRos76",
+  "figmaNodeId": "30258:5582",
+  "variants": {
+    "variant": {
+      "values": [
+        "secondary",
+        "primary",
+        "danger",
+        "invisible"
+      ],
+      "defaultValue": "secondary",
+      "type": "string",
+      "description": "Visual style variant"
+    },
+    "size": {
+      "values": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "defaultValue": "md",
+      "type": "string",
+      "description": "Button size — sm (28px), md (32px), lg (40px)"
+    },
+    "alignContent": {
+      "values": [
+        "center",
+        "start"
+      ],
+      "defaultValue": "center",
+      "type": "string",
+      "description": "Content alignment within the button"
+    },
+    "disabled": {
+      "values": [
+        "true",
+        "false"
+      ],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Disabled state"
+    }
+  },
+  "slots": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Button text content"
+    },
+    {
+      "name": "leadingVisual",
+      "required": false,
+      "description": "Optional leading icon, 16x16px"
+    },
+    {
+      "name": "trailingVisual",
+      "required": false,
+      "description": "Optional trailing icon, 16x16px"
+    }
+  ],
+  "tokens": {
+    "color.button.primary.background": {
+      "figmaValue": "#1f883d",
+      "codeValue": "#1f883d",
+      "dtcgPath": "color.button.primary.background",
+      "category": "color"
+    },
+    "color.button.default.background": {
+      "figmaValue": "#f6f8fa",
+      "codeValue": "#f6f8fa",
+      "dtcgPath": "color.button.default.background",
+      "category": "color"
+    },
+    "color.button.danger.foreground": {
+      "figmaValue": "#d1242f",
+      "codeValue": "#d1242f",
+      "dtcgPath": "color.button.danger.foreground",
+      "category": "color"
+    },
+    "color.text.primary": {
+      "figmaValue": "#25292e",
+      "codeValue": "#25292e",
+      "dtcgPath": "color.text.primary",
+      "category": "color"
+    },
+    "color.text.on-emphasis": {
+      "figmaValue": "#ffffff",
+      "codeValue": "#ffffff",
+      "dtcgPath": "color.text.on-emphasis",
+      "category": "color"
+    },
+    "spacing.button.height.sm": {
+      "figmaValue": "28px",
+      "codeValue": "28px",
+      "dtcgPath": "spacing.button.height.sm",
+      "category": "spacing"
+    },
+    "spacing.button.height.md": {
+      "figmaValue": "32px",
+      "codeValue": "32px",
+      "dtcgPath": "spacing.button.height.md",
+      "category": "spacing"
+    },
+    "spacing.button.height.lg": {
+      "figmaValue": "40px",
+      "codeValue": "40px",
+      "dtcgPath": "spacing.button.height.lg",
+      "category": "spacing"
+    },
+    "typography.button.font-family": {
+      "figmaValue": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif",
+      "codeValue": "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif",
+      "dtcgPath": "typography.button.font-family",
+      "category": "typography"
+    },
+    "typography.button.font-size": {
+      "figmaValue": "14px",
+      "codeValue": "14px",
+      "dtcgPath": "typography.button.font-size",
+      "category": "typography"
+    },
+    "typography.button.font-weight": {
+      "figmaValue": "500",
+      "codeValue": "500",
+      "dtcgPath": "typography.button.font-weight",
+      "category": "typography"
+    },
+    "typography.button.line-height": {
+      "figmaValue": "20px",
+      "codeValue": "20px",
+      "dtcgPath": "typography.button.line-height",
+      "category": "typography"
+    }
+  },
+  "authority": {
+    "structure": "cva",
+    "visual": "figma",
+    "conflictStrategy": "escalate"
+  },
+  "createdAt": "2026-04-06T00:00:00.000Z",
+  "updatedAt": "2026-04-07T03:47:30.346Z"
+}

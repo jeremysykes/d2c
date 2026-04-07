@@ -168,9 +168,9 @@ describe("Primer in status registry", () => {
     expect(components.PrimerButton).toBeDefined();
   });
 
-  it("PrimerButton is in build status", () => {
+  it("PrimerButton is in alpha status", () => {
     const registry = readJson(".d2c/status-registry.json");
     const components = registry.components as Record<string, { status: string }>;
-    expect(components.PrimerButton.status).toBe("build");
+    expect(components.PrimerButton.status).toBe("alpha");
   });
 });

@@ -1,0 +1,150 @@
+{
+  "component": "PolarisButton",
+  "version": "0.1.0-alpha.1",
+  "figmaFileKey": "QoLsm4KFD0ncjo9C1ycTVb",
+  "figmaNodeId": "37:12833",
+  "variants": {
+    "variant": {
+      "values": [
+        "auto",
+        "primary",
+        "tertiary"
+      ],
+      "defaultValue": "auto",
+      "type": "string",
+      "description": "Visual style variant"
+    },
+    "tone": {
+      "values": [
+        "neutral",
+        "critical"
+      ],
+      "defaultValue": "neutral",
+      "type": "string",
+      "description": "Semantic tone — neutral or critical (destructive)"
+    },
+    "iconOnly": {
+      "values": [
+        "true",
+        "false"
+      ],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Icon-only mode — no label, square button"
+    },
+    "disabled": {
+      "values": [
+        "true",
+        "false"
+      ],
+      "defaultValue": "false",
+      "type": "boolean",
+      "description": "Disabled state"
+    }
+  },
+  "slots": [
+    {
+      "name": "label",
+      "required": true,
+      "description": "Button text content"
+    },
+    {
+      "name": "icon",
+      "required": false,
+      "description": "Optional icon element"
+    }
+  ],
+  "tokens": {
+    "color.button.primary.background": {
+      "figmaValue": "#303030",
+      "codeValue": "#303030",
+      "dtcgPath": "color.button.primary.background",
+      "category": "color"
+    },
+    "color.button.critical.background": {
+      "figmaValue": "#e51c00",
+      "codeValue": "#e51c00",
+      "dtcgPath": "color.button.critical.background",
+      "category": "color"
+    },
+    "color.button.tertiary.background": {
+      "figmaValue": "transparent",
+      "codeValue": "transparent",
+      "dtcgPath": "color.button.tertiary.background",
+      "category": "color"
+    },
+    "color.text.primary": {
+      "figmaValue": "#303030",
+      "codeValue": "#303030",
+      "dtcgPath": "color.text.primary",
+      "category": "color"
+    },
+    "color.text.on-fill": {
+      "figmaValue": "#ffffff",
+      "codeValue": "#ffffff",
+      "dtcgPath": "color.text.on-fill",
+      "category": "color"
+    },
+    "color.text.critical": {
+      "figmaValue": "#e51c00",
+      "codeValue": "#e51c00",
+      "dtcgPath": "color.text.critical",
+      "category": "color"
+    },
+    "color.text.disabled": {
+      "figmaValue": "#b5b5b5",
+      "codeValue": "#b5b5b5",
+      "dtcgPath": "color.text.disabled",
+      "category": "color"
+    },
+    "spacing.button.border-radius": {
+      "figmaValue": "8px",
+      "codeValue": "8px",
+      "dtcgPath": "spacing.button.border-radius",
+      "category": "spacing"
+    },
+    "spacing.button.padding-horizontal": {
+      "figmaValue": "12px",
+      "codeValue": "12px",
+      "dtcgPath": "spacing.button.padding-horizontal",
+      "category": "spacing"
+    },
+    "spacing.button.gap": {
+      "figmaValue": "4px",
+      "codeValue": "4px",
+      "dtcgPath": "spacing.button.gap",
+      "category": "spacing"
+    },
+    "typography.button.font-family": {
+      "figmaValue": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "codeValue": "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "dtcgPath": "typography.button.font-family",
+      "category": "typography"
+    },
+    "typography.button.font-size": {
+      "figmaValue": "13px",
+      "codeValue": "13px",
+      "dtcgPath": "typography.button.font-size",
+      "category": "typography"
+    },
+    "typography.button.font-weight": {
+      "figmaValue": "550",
+      "codeValue": "550",
+      "dtcgPath": "typography.button.font-weight",
+      "category": "typography"
+    },
+    "typography.button.line-height": {
+      "figmaValue": "20px",
+      "codeValue": "20px",
+      "dtcgPath": "typography.button.line-height",
+      "category": "typography"
+    }
+  },
+  "authority": {
+    "structure": "cva",
+    "visual": "figma",
+    "conflictStrategy": "escalate"
+  },
+  "createdAt": "2026-04-06T00:00:00.000Z",
+  "updatedAt": "2026-04-07T03:48:32.528Z"
+}

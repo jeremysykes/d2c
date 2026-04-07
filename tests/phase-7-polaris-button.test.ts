@@ -86,8 +86,8 @@ describe("Polaris in status registry", () => {
     const c = readJson(".d2c/status-registry.json").components as Record<string, unknown>;
     expect(c.PolarisButton).toBeDefined();
   });
-  it("is in build status", () => {
+  it("is in alpha status", () => {
     const c = readJson(".d2c/status-registry.json").components as Record<string, { status: string }>;
-    expect(c.PolarisButton.status).toBe("build");
+    expect(c.PolarisButton.status).toBe("alpha");
   });
 });
