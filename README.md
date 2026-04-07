@@ -2,7 +2,7 @@
 
 Design systems drift because the Figma-to-code handoff is manual, one-directional, and undocumented. A designer renames a token, a developer ships a prop change, nobody notices until something breaks. `d2c` makes that handoff bidirectional, gated, and automated.
 
-`d2c` is a Claude Code skill — an instruction set that coordinates four MCP servers across six lifecycle phases. It extracts component structure from Figma, scaffolds code with design tokens, validates the rendered output against the design spec, ships corrections back to Figma, detects drift, and manages deprecation. Nothing advances without passing deterministic validation gates.
+`d2c` is a Claude Code skill — an instruction set that coordinates four MCP servers across six lifecycle phases. It extracts component structure from Figma, scaffolds code with design tokens, validates the rendered output against the design spec, writes lifecycle status back to Figma, detects drift, and supports deprecation workflows. The validate phase enforces two deterministic gates — structural CSS comparison and token delta — that must both pass before a component can advance to ship.
 
 ```
 DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
@@ -15,7 +15,7 @@ DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
 
 ### POC result
 
-Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three use a two-layer token architecture: Style Dictionary generates primitive CSS custom properties, a hand-written `semantic.css` maps standard names to those primitives, and components consume semantic Tailwind utilities (`bg-cds-primary`, `bg-primer-primary`, `bg-polaris-primary`). No hardcoded hex values, no explicit `var()` references in component code.
+Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three use a two-layer token architecture: Style Dictionary generates primitive CSS custom properties, a hand-written `semantic.css` maps standard names to those primitives, and components consume semantic Tailwind utilities (`bg-cds-primary`, `bg-primer-primary`, `bg-polaris-primary`). No hardcoded color values. Colors use semantic Tailwind utilities (`bg-cds-primary`). Spacing and typography reference semantic CSS custom properties. Shadow values use design-system-specific composite tokens from Figma.
 
 The structural validation gate caught real bugs during development: the Carbon Button had text vertically misaligned by 15px (incorrect flex direction) and an icon positioned adjacent to text instead of at the trailing edge (wrong flex layout). The gate — which discovers what to check by reading the component's `semantic.css` and comparing resolved token values against computed CSS — blocked advancement until the layout was fixed.
 
@@ -62,7 +62,7 @@ Components use a two-layer token system modeled after production design system p
 
 **Layer 3 — Tailwind utilities.** The `@theme` block in Storybook's preview.css registers semantic tokens as Tailwind colors, enabling CVA to use `bg-cds-primary` instead of `bg-[var(--cds-color-button-primary-background)]`.
 
-Components reference semantic utilities — `bg-cds-primary`, `text-primer-primary-foreground`, `bg-polaris-critical` — never hardcoded values or explicit `var()` references. The semantic layer is the bridge that makes components readable and the validation gate component-agnostic.
+Components reference semantic Tailwind utilities for colors (`bg-cds-primary`, `text-primer-primary-foreground`) and semantic CSS custom properties for spacing and typography (`var(--cds-spacing-height-lg)`, `var(--cds-typography-font-family)`). No hardcoded color values.
 
 ### Validation: component-agnostic structural gate
 
@@ -78,6 +78,8 @@ The validate phase discovers what to check by reading the component's `semantic.
 | `--{prefix}-spacing-padding-*` | `paddingLeft` | Root element |
 
 Playwright navigates to the Storybook story, extracts computed CSS via `page.evaluate()`, and compares each value against the resolved semantic token. Values match or the gate fails. A new component type needs only a `semantic.css` and a Storybook story — no gate configuration.
+
+The convention-driven token checks are fully component-agnostic. Layout-specific checks (vertical text alignment, icon trailing-edge position) are configured per component type in the variant manifest.
 
 Token delta is a separate gate with hard-zero tolerance — a token mismatch means the component is visually incorrect by definition.
 
@@ -222,9 +224,7 @@ These are honest gaps, not planned features.
 
 **Framework-agnostic scaffolding.** The build phase scaffolds React with CVA. Vue (`@radix-vue`) and Web Components are documented but not yet exercised.
 
-**Live Storybook MCP integration.** Story files are generated; serving via `@storybook/addon-mcp` is documented but not yet wired.
-
-**Additional component types.** The semantic token gate is component-agnostic — a Checkbox, Select, or Dialog needs only a `semantic.css` and a Storybook story. The POC demonstrates the pattern with Buttons; extending to other component types validates the architecture further.
+**Additional component types.** The semantic token gate is component-agnostic for token checks — a Checkbox, Select, or Dialog needs only a `semantic.css` and a Storybook story. The POC demonstrates the pattern with Buttons; extending to other component types validates the architecture further.
 
 ---
 
