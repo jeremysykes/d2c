@@ -99,7 +99,7 @@
       },
       "critical": {
         "$type": "color",
-        "$value": "#e51c00"
+        "$value": "#8e0b21"
       },
       "success": {
         "$type": "color",
