@@ -58,13 +58,13 @@ const buttonVariants = cva(
         variant: "auto",
         tone: "critical",
         disabled: false,
-        className: "text-polaris-critical-foreground",
+        className: "!text-polaris-critical-foreground",
       },
       {
         variant: "tertiary",
         tone: "critical",
         disabled: false,
-        className: "text-polaris-critical-foreground",
+        className: "!text-polaris-critical-foreground",
       },
       {
         variant: "auto",
