@@ -1,0 +1,36 @@
+/**
+ * Polaris Button — semantic token layer.
+ * Maps standard semantic names to Polaris-specific CSS custom properties.
+ */
+
+:root {
+  --polaris-primary: var(--polaris-color-button-primary-background);
+  --polaris-primary-hover: var(--polaris-color-button-primary-hover);
+  --polaris-primary-active: var(--polaris-color-button-primary-active);
+  --polaris-primary-foreground: var(--polaris-color-text-on-fill);
+
+  --polaris-secondary: white;
+  --polaris-secondary-foreground: var(--polaris-color-text-primary);
+
+  --polaris-tertiary: var(--polaris-color-button-tertiary-background);
+  --polaris-tertiary-hover: var(--polaris-color-button-tertiary-hover);
+  --polaris-tertiary-active: var(--polaris-color-button-tertiary-active);
+  --polaris-tertiary-foreground: var(--polaris-color-text-primary);
+
+  --polaris-critical: var(--polaris-color-button-critical-background);
+  --polaris-critical-hover: var(--polaris-color-button-critical-hover);
+  --polaris-critical-active: var(--polaris-color-button-critical-active);
+  --polaris-critical-foreground: var(--polaris-color-text-critical);
+
+  --polaris-disabled: var(--polaris-color-button-disabled-background);
+  --polaris-disabled-foreground: var(--polaris-color-text-disabled);
+
+  --polaris-spacing-padding-horizontal: var(--polaris-spacing-button-padding-horizontal);
+  --polaris-spacing-border-radius: var(--polaris-spacing-button-border-radius);
+  --polaris-spacing-gap: var(--polaris-spacing-button-gap);
+
+  --polaris-typography-font-family: var(--polaris-typography-button-font-family);
+  --polaris-typography-font-size: var(--polaris-typography-button-font-size);
+  --polaris-typography-font-weight: var(--polaris-typography-button-font-weight);
+  --polaris-typography-line-height: var(--polaris-typography-button-line-height);
+}
