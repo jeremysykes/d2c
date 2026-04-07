@@ -4,3 +4,4 @@ dist/
 .d2c/diff-results/
 .d2c/diff-baseline/
 storybook-static/
+.playwright-mcp/
