@@ -15,7 +15,7 @@ DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
 
 ### POC result
 
-Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three use a two-layer token architecture: Style Dictionary primitives feed into a semantic token layer (`semantic.css`), and components consume semantic Tailwind utilities (`bg-cds-primary`, `bg-primer-primary`, `bg-polaris-primary`). No hardcoded hex values, no explicit `var()` references in component code.
+Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three use a two-layer token architecture: Style Dictionary generates primitive CSS custom properties, a hand-written `semantic.css` maps standard names to those primitives, and components consume semantic Tailwind utilities (`bg-cds-primary`, `bg-primer-primary`, `bg-polaris-primary`). No hardcoded hex values, no explicit `var()` references in component code.
 
 The structural validation gate caught real bugs during development: the Carbon Button had text vertically misaligned by 15px (incorrect flex direction) and an icon positioned adjacent to text instead of at the trailing edge (wrong flex layout). The gate — which discovers what to check by reading the component's `semantic.css` and comparing resolved token values against computed CSS — blocked advancement until the layout was fixed.
 
@@ -46,7 +46,7 @@ The structural validation gate caught real bugs during development: the Carbon B
 | Phase | What happens | Output |
 |---|---|---|
 | **Design** | Extract component from Figma. Seed variant manifest with variants, slots, token bindings, authority rules. | `.variant-authority/{component}.manifest.json` |
-| **Build** | Scaffold component code (React + CVA). Run token pipeline (DTCG → Style Dictionary → semantic tokens → Tailwind utilities). Generate Storybook stories. | Component code, semantic.css, generated tokens, story file |
+| **Build** | Scaffold component code (React + CVA). Run token pipeline (DTCG → Style Dictionary → CSS custom properties). Create semantic token mapping (`semantic.css`). Generate Storybook stories. | Component code, semantic.css, generated tokens, story file |
 | **Validate** | Structural gate: Playwright extracts computed CSS from rendered story, compares against manifest tokens. Token delta gate: manifest vs DTCG source. Both must pass. | `.d2c/diff-results/{component}-latest.json` |
 | **Ship** | Promote lifecycle status (alpha → beta → stable). Bump semver. Generate changelog. Write version and status back to Figma component description. | Changelog, updated manifest and Figma description |
 | **Maintain** | On-demand drift detection. Re-extract Figma state, compare against manifest, apply truth authority rules. Flag conflicts. | `.d2c/drift-report.json` |
@@ -56,17 +56,13 @@ The structural validation gate caught real bugs during development: the Carbon B
 
 Components use a two-layer token system modeled after production design system patterns:
 
-```
-DTCG source → Style Dictionary → primitives (--cds-color-button-primary-background)
-                                      ↓
-                               semantic.css (--cds-primary: var(--cds-color-button-primary-background))
-                                      ↓
-                               Tailwind @theme (--color-cds-primary: var(--cds-primary))
-                                      ↓
-                               CVA utilities (bg-cds-primary)
-```
+**Layer 1 — Primitives.** Style Dictionary transforms DTCG source files into CSS custom properties (`--cds-color-button-primary-background`). These are the raw values, generated automatically.
 
-Each design system has its own `semantic.css` mapping standard token names to system-specific variables. Components reference semantic utilities — `bg-cds-primary`, `text-primer-primary-foreground`, `bg-polaris-critical` — never hardcoded values or explicit `var()` references. The semantic layer is the bridge that makes components readable and the validation gate component-agnostic.
+**Layer 2 — Semantic tokens.** A hand-written `semantic.css` per design system maps standard token names to the primitive variables (`--cds-primary: var(--cds-color-button-primary-background)`). This is a manual mapping — if a primitive variable name changes, the semantic file must be updated to match.
+
+**Layer 3 — Tailwind utilities.** The `@theme` block in Storybook's preview.css registers semantic tokens as Tailwind colors, enabling CVA to use `bg-cds-primary` instead of `bg-[var(--cds-color-button-primary-background)]`.
+
+Components reference semantic utilities — `bg-cds-primary`, `text-primer-primary-foreground`, `bg-polaris-critical` — never hardcoded values or explicit `var()` references. The semantic layer is the bridge that makes components readable and the validation gate component-agnostic.
 
 ### Validation: component-agnostic structural gate
 
