@@ -69,6 +69,11 @@ describe("variant-manifest.ts", () => {
     expect(content).toMatch(/export\s+function\s+isVariantManifest/);
   });
 
+  it("has optional semanticTokenFile field", () => {
+    const content = readSchema("variant-manifest.ts");
+    expect(content).toMatch(/semanticTokenFile\?:\s*string/);
+  });
+
   it("AuthorityMap has conflictStrategy with escalate, figma-wins, cva-wins", () => {
     const content = readSchema("variant-manifest.ts");
     expect(content).toContain("escalate");
