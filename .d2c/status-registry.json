@@ -88,8 +88,8 @@
       ]
     },
     "PolarisButton": {
-      "status": "alpha",
-      "previousStatus": "validate",
+      "status": "build",
+      "previousStatus": "alpha",
       "updatedAt": "2026-04-06T00:00:00.000Z",
       "updatedBy": "ship",
       "history": [
@@ -134,11 +134,18 @@
           "at": "2026-04-06T00:00:00.000Z",
           "by": "ship",
           "reason": "Promoted to alpha (0.1.0-alpha.1). Token pipeline fully integrated."
+        },
+        {
+          "from": "alpha",
+          "to": "build",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "pipeline-integrity",
+          "reason": "Rolled back — promoted to alpha without passing structural validation gate via Playwright."
         }
       ]
     },
     "PrimerButton": {
-      "status": "alpha",
+      "status": "build",
       "previousStatus": "validate",
       "updatedAt": "2026-04-06T00:00:00.000Z",
       "updatedBy": "ship",
@@ -184,6 +191,13 @@
           "at": "2026-04-06T00:00:00.000Z",
           "by": "ship",
           "reason": "Promoted to alpha (0.1.0-alpha.1). Token pipeline fully integrated."
+        },
+        {
+          "from": "alpha",
+          "to": "build",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "pipeline-integrity",
+          "reason": "Rolled back — promoted to alpha without passing structural validation gate via Playwright."
         }
       ]
     }
