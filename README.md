@@ -1,5 +1,7 @@
 # d2c — Design-to-code lifecycle skill
 
+**[Live demo](https://jeremysykes.github.io/d2c/)** — Three Button components from Carbon, Primer, and Polaris running in Storybook with semantic token validation.
+
 Design systems drift because the Figma-to-code handoff is manual, one-directional, and undocumented. A designer renames a token, a developer ships a prop change, nobody notices until something breaks. `d2c` makes that handoff bidirectional, gated, and automated.
 
 `d2c` is a Claude Code skill — an instruction set that coordinates four MCP servers across six lifecycle phases. It extracts component structure from Figma, scaffolds code with design tokens, validates the rendered output against the design spec, writes lifecycle status back to Figma, detects drift, and supports deprecation workflows. The validate phase enforces two deterministic gates — structural CSS comparison and token delta — that must both pass before a component can advance to ship.

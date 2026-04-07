@@ -18,8 +18,6 @@ const buttonVariants = cva(
     "font-[number:var(--polaris-typography-font-weight)]",
     "rounded-[var(--polaris-spacing-border-radius)]",
     "gap-[var(--polaris-spacing-gap)]",
-    "px-[var(--polaris-spacing-padding-horizontal)]",
-    "py-1.5",
   ].join(" "),
   {
     variants: {
@@ -33,8 +31,8 @@ const buttonVariants = cva(
         critical: "",
       },
       iconOnly: {
-        true: "gap-0 !p-1.5",
-        false: "",
+        true: "gap-0 p-1.5",
+        false: "px-[var(--polaris-spacing-padding-horizontal)] py-1.5",
       },
       disabled: {
         true: "text-polaris-disabled-foreground shadow-none cursor-not-allowed",
