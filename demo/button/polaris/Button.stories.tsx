@@ -12,8 +12,9 @@ import { Button } from "./Button";
  */
 
 const SettingsIcon = (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
-    <path d="M10.5 3a.5.5 0 0 0-1 0v1.036A5.5 5.5 0 0 0 4.536 9.5H3.5a.5.5 0 0 0 0 1h1.036a5.5 5.5 0 0 0 4.964 4.964V16.5a.5.5 0 0 0 1 0v-1.036A5.5 5.5 0 0 0 15.464 10.5H16.5a.5.5 0 0 0 0-1h-1.036A5.5 5.5 0 0 0 10.5 4.036V3zM10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" width="20" height="20">
+    <circle cx="10" cy="10" r="2.5" />
+    <path d="M10 3v1.5M10 15.5V17M17 10h-1.5M4.5 10H3M14.95 5.05l-1.06 1.06M6.11 13.89l-1.06 1.06M14.95 14.95l-1.06-1.06M6.11 6.11L5.05 5.05" strokeLinecap="round" />
   </svg>
 );
 
