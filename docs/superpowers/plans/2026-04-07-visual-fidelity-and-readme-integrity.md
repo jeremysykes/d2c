@@ -299,7 +299,7 @@ git commit -m "validate: all three Buttons re-validated after visual fidelity fi
 
 ```bash
 npm run validate
-cd /Users/jeremysykes/workspace/projects/component-contracts && npm test
+cd ../component-contracts && npm test
 ```
 
 Expected: ALL PASS in both repos.
@@ -307,8 +307,8 @@ Expected: ALL PASS in both repos.
 - [ ] **Step 2: Push**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/d2c && git push origin main
-cd /Users/jeremysykes/workspace/projects/component-contracts && git push origin main
+cd . && git push origin main
+cd ../component-contracts && git push origin main
 ```
 
 ---

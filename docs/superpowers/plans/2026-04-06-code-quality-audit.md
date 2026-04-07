@@ -19,7 +19,7 @@
 | `demo/button/carbon/Button.tsx` | Rewrite | Token variable refs, horizontal flex layout, font via token |
 | `.storybook/preview.css` | Modify | Add Google Fonts import for IBM Plex Sans |
 | `demo/button/carbon/Button.stories.tsx` | Modify | Update status parameter after re-validation |
-| `/Users/jeremysykes/workspace/projects/component-contracts/README.md` | Rewrite | Current schema, tools, Vue support, value-first structure |
+| `../component-contracts/README.md` | Rewrite | Current schema, tools, Vue support, value-first structure |
 | `README.md` | Rewrite | Value-first structure, technical detail below the fold |
 | `demo/button/primer/Button.tsx` | Modify | Token variable refs, font via token variable |
 | `demo/button/polaris/Button.tsx` | Modify | Token variable refs, font via token variable |
@@ -234,7 +234,7 @@ Only if validate phase changes require test file updates.
 ### Task 4: component-contracts README
 
 **Files:**
-- Modify: `/Users/jeremysykes/workspace/projects/component-contracts/README.md`
+- Modify: `../component-contracts/README.md`
 
 - [ ] **Step 1: Rewrite README.md**
 
@@ -253,7 +253,7 @@ Remove stale content: old schema fields (status, props, consumers), old tool nam
 - [ ] **Step 2: Commit**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/component-contracts
+cd ../component-contracts
 git add README.md
 git commit -m "docs: rewrite README — current schema, tools, value-first structure"
 ```
@@ -395,7 +395,7 @@ PolarisButton alpha
 - [ ] **Step 3: Run component-contracts tests**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/component-contracts && npm test
+cd ../component-contracts && npm test
 ```
 
 Expected: ALL PASS.
@@ -403,8 +403,8 @@ Expected: ALL PASS.
 - [ ] **Step 4: Push both repos**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/d2c && git push origin main
-cd /Users/jeremysykes/workspace/projects/component-contracts && git push origin main
+cd . && git push origin main
+cd ../component-contracts && git push origin main
 ```
 
 ---

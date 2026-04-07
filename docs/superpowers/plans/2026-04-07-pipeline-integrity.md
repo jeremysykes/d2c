@@ -372,7 +372,7 @@ Expected: ALL PASS.
 
 ```bash
 git push origin main
-cd /Users/jeremysykes/workspace/projects/component-contracts && git push origin main
+cd ../component-contracts && git push origin main
 ```
 
 ---

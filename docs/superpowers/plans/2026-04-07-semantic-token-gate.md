@@ -97,7 +97,7 @@ In `component-contracts/tests/schema-alignment.test.ts`, add inside the "Variant
 - [ ] **Step 6: Run test to verify fail**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/component-contracts && npx vitest run tests/schema-alignment.test.ts
+cd ../component-contracts && npx vitest run tests/schema-alignment.test.ts
 ```
 
 - [ ] **Step 7: Add field to component-contracts schema**
@@ -128,12 +128,12 @@ npm run build
 
 ```bash
 # d2c
-cd /Users/jeremysykes/workspace/projects/d2c
+cd .
 git add .claude/skills/d2c/schemas/variant-manifest.ts tests/phase-1-schemas.test.ts
 git commit -m "feat: add semanticTokenFile optional field to variant manifest schema"
 
 # component-contracts
-cd /Users/jeremysykes/workspace/projects/component-contracts
+cd ../component-contracts
 git add src/shared/schemas.ts tests/schema-alignment.test.ts
 git commit -m "feat: add semanticTokenFile optional field to variant manifest schema"
 ```
@@ -915,7 +915,7 @@ git add .claude/skills/d2c/schemas/diff-result.ts .claude/skills/d2c/phases/vali
 git commit -m "feat: component-agnostic structural gate — discovers checks from semantic token conventions"
 
 # component-contracts
-cd /Users/jeremysykes/workspace/projects/component-contracts
+cd ../component-contracts
 git add README.md
 git commit -m "docs: add semanticTokenFile to VariantManifest schema docs"
 ```
@@ -994,18 +994,18 @@ All three → `alpha` with history entries.
 
 ```bash
 npm run validate
-cd /Users/jeremysykes/workspace/projects/component-contracts && npm test
+cd ../component-contracts && npm test
 ```
 
 - [ ] **Step 7: Commit and push both repos**
 
 ```bash
-cd /Users/jeremysykes/workspace/projects/d2c
+cd .
 git add .d2c/ .variant-authority/
 git commit -m "ship: all three Buttons to alpha with semantic token gate and Figma write-back"
 git push origin main
 
-cd /Users/jeremysykes/workspace/projects/component-contracts
+cd ../component-contracts
 git push origin main
 ```
 
