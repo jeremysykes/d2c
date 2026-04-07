@@ -11,6 +11,12 @@ import { Button } from "./Button";
  * - Icon only: true, false
  */
 
+const SettingsIcon = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+    <path d="M10.5 3a.5.5 0 0 0-1 0v1.036A5.5 5.5 0 0 0 4.536 9.5H3.5a.5.5 0 0 0 0 1h1.036a5.5 5.5 0 0 0 4.964 4.964V16.5a.5.5 0 0 0 1 0v-1.036A5.5 5.5 0 0 0 15.464 10.5H16.5a.5.5 0 0 0 0-1h-1.036A5.5 5.5 0 0 0 10.5 4.036V3zM10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
+  </svg>
+);
+
 const meta = {
   title: "Polaris/Button",
   component: Button,
@@ -55,14 +61,14 @@ export const TertiaryCritical: Story = { args: { variant: "tertiary", tone: "cri
 export const IconOnly: Story = {
   args: {
     iconOnly: true,
-    icon: <span style={{ fontSize: 14 }} aria-hidden>⟳</span>,
+    icon: SettingsIcon,
   },
 };
 export const PrimaryIconOnly: Story = {
   args: {
     variant: "primary",
     iconOnly: true,
-    icon: <span style={{ fontSize: 14 }} aria-hidden>⟳</span>,
+    icon: SettingsIcon,
   },
 };
 
