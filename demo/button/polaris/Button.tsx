@@ -33,7 +33,7 @@ const buttonVariants = cva(
         critical: "",
       },
       iconOnly: {
-        true: "gap-0 p-1.5",
+        true: "gap-0 !p-1.5",
         false: "",
       },
       disabled: {

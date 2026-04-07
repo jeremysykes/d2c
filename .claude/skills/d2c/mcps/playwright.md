@@ -68,7 +68,8 @@ extracted.buttonCenter = btnRect.height / 2;
 - **Font family**: String-contains check. Computed style returns a font stack. The semantic token's resolved value must appear in the string.
 - **Font weight**: Numeric comparison.
 - **Vertical alignment**: `|textCenter - buttonCenter| <= 2px`.
-- **Icon position**: For components with icon slots, icon trailing edge within 2px of expected position.
+- **Icon position**: For components with icon slots in default type, icon trailing edge within 2px of expected position.
+- **Icon-only aspect ratio**: For icon-only variants, `el.offsetWidth === el.offsetHeight` (button must be square).
 
 ### Output
 

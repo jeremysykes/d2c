@@ -64,7 +64,8 @@ A new component type needs only a `semantic.css` and a Storybook story — no ga
 
 **Fixed layout checks** (not convention-derived):
 - Vertical alignment: text center within 2px of container center
-- Icon position: for components with icon slots, icon trailing edge within 2px of expected position
+- Icon position: for components with icon slots in default type, icon trailing edge within 2px of expected position
+- Icon-only aspect ratio: for icon-only variants, button width must equal button height (square)
 
 **Comparison rules:**
 - Colors: normalized to RGB, exact match, tolerance of rgb +/-2 per channel for rounding
