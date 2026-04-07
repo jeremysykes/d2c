@@ -1,0 +1,20 @@
+{
+  "component": "Button",
+  "generatedAt": "2026-04-07T00:00:00.000Z",
+  "status": "drifted",
+  "entries": [
+    {
+      "token": "color.button.primary.background",
+      "authority": "figma",
+      "manifestValue": "#0f62fe",
+      "sourceValue": "#0a52d6",
+      "resolution": "escalate",
+      "note": "Token source changed without corresponding Figma update. Figma is visual authority — code should match Figma value."
+    }
+  ],
+  "summary": {
+    "totalChecked": 14,
+    "drifted": 1,
+    "conflicts": 0
+  }
+}

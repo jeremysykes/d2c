@@ -84,6 +84,20 @@
           "at": "2026-04-06T00:00:00.000Z",
           "by": "ship",
           "reason": "Promoted to alpha (0.1.0-alpha.2). Figma write preflight passed. Component description updated. Structural gate validated. Changelog appended."
+        },
+        {
+          "from": "alpha",
+          "to": "blocked",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "maintain",
+          "reason": "Drift detected: color.button.primary.background manifest=#0f62fe source=#0a52d6. Figma is visual authority — token source diverged."
+        },
+        {
+          "from": "blocked",
+          "to": "alpha",
+          "at": "2026-04-07T00:00:00.000Z",
+          "by": "maintain",
+          "reason": "Drift resolved: token source restored to match manifest. 0/14 mismatches after restore."
         }
       ]
     },
