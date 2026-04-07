@@ -1,0 +1,50 @@
+/**
+ * Carbon Button — semantic token layer.
+ * Maps standard semantic names to Carbon-specific CSS custom properties.
+ * The structural validation gate reads this file to discover checks.
+ */
+
+:root {
+  --cds-primary: var(--cds-color-button-primary-background);
+  --cds-primary-hover: var(--cds-color-button-primary-hover);
+  --cds-primary-active: var(--cds-color-button-primary-active);
+  --cds-primary-foreground: var(--cds-color-text-on-color);
+
+  --cds-secondary: var(--cds-color-button-secondary-background);
+  --cds-secondary-hover: var(--cds-color-button-secondary-hover);
+  --cds-secondary-active: var(--cds-color-button-secondary-active);
+  --cds-secondary-foreground: var(--cds-color-text-on-color);
+
+  --cds-tertiary: var(--cds-color-button-tertiary-background);
+  --cds-tertiary-hover: var(--cds-color-button-tertiary-hover);
+  --cds-tertiary-active: var(--cds-color-button-tertiary-active);
+  --cds-tertiary-foreground: var(--cds-color-text-interactive);
+  --cds-tertiary-border: var(--cds-color-border-interactive);
+
+  --cds-ghost: transparent;
+  --cds-ghost-hover: var(--cds-color-button-ghost-hover);
+  --cds-ghost-active: var(--cds-color-button-ghost-active);
+  --cds-ghost-foreground: var(--cds-color-text-interactive);
+
+  --cds-danger: var(--cds-color-button-danger-background);
+  --cds-danger-hover: var(--cds-color-button-danger-hover);
+  --cds-danger-active: var(--cds-color-button-danger-active);
+  --cds-danger-foreground: var(--cds-color-text-on-color);
+
+  --cds-disabled: var(--cds-color-button-disabled-background);
+  --cds-disabled-foreground: var(--cds-color-text-on-color-disabled);
+
+  --cds-spacing-height-sm: var(--cds-spacing-button-height-sm);
+  --cds-spacing-height-md: var(--cds-spacing-button-height-md);
+  --cds-spacing-height-lg: var(--cds-spacing-button-height-lg);
+  --cds-spacing-height-xl: var(--cds-spacing-button-height-xl);
+  --cds-spacing-height-2xl: var(--cds-spacing-button-height-2xl);
+  --cds-spacing-padding-horizontal: var(--cds-spacing-button-padding-horizontal);
+  --cds-spacing-icon-size: var(--cds-spacing-button-icon-size);
+
+  --cds-typography-font-family: var(--cds-typography-button-font-family);
+  --cds-typography-font-size: var(--cds-typography-button-font-size);
+  --cds-typography-font-weight: var(--cds-typography-button-font-weight);
+  --cds-typography-line-height: var(--cds-typography-button-line-height);
+  --cds-typography-letter-spacing: var(--cds-typography-button-letter-spacing);
+}
