@@ -37,30 +37,41 @@ Run two deterministic validation gates. Both must pass for the component to adva
 
 ### 2. Gate 1 — Structural comparison
 
-Use Playwright MCP to navigate to the Storybook story URL for the primary variant. Extract computed CSS properties via `page.evaluate()` and compare against manifest token values.
+Use Playwright MCP to navigate to the Storybook story URL for the primary variant. The gate discovers what to check by reading the component's `semantic.css` file (located via `semanticTokenFile` in the variant manifest).
 
-**Properties extracted and compared:**
+**Convention-driven discovery:**
 
-| Property | Extraction | Compared against |
+The gate reads every CSS custom property declaration from `semantic.css` and derives the CSS property and target element from the naming convention:
+
+| Token pattern | CSS property | Target |
 |---|---|---|
-| Background color | `getComputedStyle(el).backgroundColor` | Manifest token `color.button.{kind}.background` |
-| Text color | `getComputedStyle(el).color` | Manifest token `color.text.on-color` |
-| Font family | `getComputedStyle(el).fontFamily` | Manifest token `typography.button.font-family` |
-| Font size | `getComputedStyle(el).fontSize` | Manifest token `typography.button.font-size` |
-| Font weight | `getComputedStyle(el).fontWeight` | Figma extraction value (400 = Regular) |
-| Line height | `getComputedStyle(el).lineHeight` | Manifest token `typography.button.line-height` |
-| Letter spacing | `getComputedStyle(el).letterSpacing` | Manifest token `typography.button.letter-spacing` |
-| Padding left | `getComputedStyle(el).paddingLeft` | Manifest token `spacing.button.padding.left` |
-| Padding right | `getComputedStyle(el).paddingRight` | Manifest token `spacing.button.padding.right` |
-| Height | `el.offsetHeight + "px"` | Manifest token `spacing.button.height.{size}` |
-| Vertical alignment | Text `offsetTop` vs button center | Figma layout spec (centered within 2px for center-aligned sizes) |
+| `--{prefix}-{variant}` (no suffix) | `backgroundColor` | Root element |
+| `--{prefix}-{variant}-foreground` | `color` | Text element |
+| `--{prefix}-{variant}-hover` | Skip (state-dependent) | — |
+| `--{prefix}-{variant}-active` | Skip (state-dependent) | — |
+| `--{prefix}-spacing-height-{size}` | `height` | Root element (active size) |
+| `--{prefix}-spacing-padding-horizontal` | `paddingLeft` | Root element |
+| `--{prefix}-spacing-gap` | `gap` | Root element |
+| `--{prefix}-spacing-border-radius` | `borderRadius` | Root element |
+| `--{prefix}-spacing-icon-size` | `width`, `height` | Icon element |
+| `--{prefix}-typography-font-family` | `fontFamily` | Root element |
+| `--{prefix}-typography-font-size` | `fontSize` | Root element |
+| `--{prefix}-typography-font-weight` | `fontWeight` | Root element |
+| `--{prefix}-typography-line-height` | `lineHeight` | Root element |
+| `--{prefix}-typography-letter-spacing` | `letterSpacing` | Root element |
+
+A new component type needs only a `semantic.css` and a Storybook story — no gate configuration.
+
+**Fixed layout checks** (not convention-derived):
+- Vertical alignment: text center within 2px of container center
+- Icon position: for components with icon slots, icon trailing edge within 2px of expected position
 
 **Comparison rules:**
 - Colors: normalized to RGB, exact match, tolerance of rgb +/-2 per channel for rounding
 - Dimensions: normalized to px, exact match, tolerance of +/-1px for subpixel rounding
 - Font family: string-contains check (computed style returns full font stack)
-- Font weight: numeric comparison (400 = 400)
-- Vertical alignment: text center within 2px of button center
+- Font weight: numeric comparison
+- Vertical alignment: text center within 2px of container center
 
 **Pass condition:** Zero mismatches with severity `"error"`.
 

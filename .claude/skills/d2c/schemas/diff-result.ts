@@ -16,6 +16,7 @@ export interface DiffResult {
 
 export interface StructuralGateResult {
   passed: boolean;
+  semanticTokensChecked: number;
   mismatches: StructuralMismatch[];
 }
 

@@ -26,16 +26,20 @@ The primary validation tool. Playwright loads a Storybook story, then extracts c
 3. Set viewport to configured size (default: 1440x900)
 ```
 
-### CSS extraction
+### Convention-driven CSS extraction
 
-Use `page.evaluate()` to extract computed styles from the rendered component:
+The gate reads the component's `semantic.css` file (located via `semanticTokenFile` in the variant manifest) and derives what to check from the token naming convention. It then uses `page.evaluate()` to extract the corresponding computed CSS properties.
+
+The extraction is component-agnostic — it works for any component type that has a `semantic.css` following the naming convention:
 
 ```javascript
-const el = document.querySelector('[data-node-id]') || document.querySelector('button');
+// Root element: first child of #storybook-root
+const root = document.querySelector('#storybook-root');
+const el = root.querySelector('button') || root.children[0];
 const styles = getComputedStyle(el);
-const textEl = el.querySelector('span') || el;
 
-return {
+// Extract all properties the gate needs based on semantic.css tokens
+const extracted = {
   backgroundColor: styles.backgroundColor,
   color: styles.color,
   fontFamily: styles.fontFamily,
@@ -44,20 +48,27 @@ return {
   lineHeight: styles.lineHeight,
   letterSpacing: styles.letterSpacing,
   paddingLeft: styles.paddingLeft,
-  paddingRight: styles.paddingRight,
   height: el.offsetHeight + "px",
-  textOffsetTop: textEl.offsetTop,
-  buttonHeight: el.offsetHeight,
+  gap: styles.gap,
+  borderRadius: styles.borderRadius,
 };
+
+// Layout checks via getBoundingClientRect
+const textEl = el.querySelector('span');
+const btnRect = el.getBoundingClientRect();
+const textRect = textEl ? textEl.getBoundingClientRect() : null;
+extracted.textCenter = textRect ? (textRect.top - btnRect.top) + textRect.height / 2 : null;
+extracted.buttonCenter = btnRect.height / 2;
 ```
 
 ### Comparison rules
 
 - **Colors**: Normalize hex to RGB. `#0f62fe` becomes `rgb(15, 98, 254)`. Tolerance: +/-2 per channel for rounding.
 - **Dimensions**: Compare as px numbers. `"16px"` matches `"16px"`. Tolerance: +/-1px for subpixel rounding.
-- **Font family**: String-contains check. Computed style returns a font stack like `"IBM Plex Sans", sans-serif`. The manifest value `IBM Plex Sans` must appear in the string.
-- **Font weight**: Numeric comparison. `"400"` must equal `"400"`.
-- **Vertical alignment**: For center-aligned sizes, `|textCenter - buttonCenter| <= 2px`. Where `textCenter = textOffsetTop + textHeight/2` and `buttonCenter = buttonHeight/2`.
+- **Font family**: String-contains check. Computed style returns a font stack. The semantic token's resolved value must appear in the string.
+- **Font weight**: Numeric comparison.
+- **Vertical alignment**: `|textCenter - buttonCenter| <= 2px`.
+- **Icon position**: For components with icon slots, icon trailing edge within 2px of expected position.
 
 ### Output
 
