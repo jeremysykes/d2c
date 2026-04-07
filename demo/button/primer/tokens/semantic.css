@@ -1,0 +1,43 @@
+/**
+ * Primer Button — semantic token layer.
+ * Maps standard semantic names to Primer-specific CSS custom properties.
+ */
+
+:root {
+  --primer-primary: var(--primer-color-button-primary-background);
+  --primer-primary-hover: var(--primer-color-button-primary-hover);
+  --primer-primary-active: var(--primer-color-button-primary-active);
+  --primer-primary-foreground: var(--primer-color-text-on-emphasis);
+
+  --primer-secondary: var(--primer-color-button-default-background);
+  --primer-secondary-hover: var(--primer-color-button-default-hover);
+  --primer-secondary-active: var(--primer-color-button-default-active);
+  --primer-secondary-foreground: var(--primer-color-text-primary);
+  --primer-secondary-border: var(--primer-color-border-default);
+
+  --primer-danger: var(--primer-color-button-danger-background);
+  --primer-danger-hover: var(--primer-color-button-danger-hover);
+  --primer-danger-active: var(--primer-color-button-danger-active);
+  --primer-danger-foreground: var(--primer-color-button-danger-foreground);
+
+  --primer-invisible: var(--primer-color-button-invisible-background);
+  --primer-invisible-hover: var(--primer-color-button-invisible-hover);
+  --primer-invisible-active: var(--primer-color-button-invisible-active);
+  --primer-invisible-foreground: var(--primer-color-button-outline-foreground);
+  --primer-invisible-border: var(--primer-color-border-transparent);
+
+  --primer-disabled: var(--primer-color-button-disabled-background);
+  --primer-disabled-foreground: var(--primer-color-text-disabled);
+
+  --primer-spacing-height-sm: var(--primer-spacing-button-height-sm);
+  --primer-spacing-height-md: var(--primer-spacing-button-height-md);
+  --primer-spacing-height-lg: var(--primer-spacing-button-height-lg);
+  --primer-spacing-padding-horizontal: var(--primer-spacing-button-padding-horizontal);
+  --primer-spacing-padding-horizontal-sm: var(--primer-spacing-button-padding-horizontal-sm);
+  --primer-spacing-gap: var(--primer-spacing-button-gap);
+
+  --primer-typography-font-family: var(--primer-typography-button-font-family);
+  --primer-typography-font-size: var(--primer-typography-button-font-size);
+  --primer-typography-font-weight: var(--primer-typography-button-font-weight);
+  --primer-typography-line-height: var(--primer-typography-button-line-height);
+}
