@@ -1,6 +1,6 @@
 {
   "component": "PolarisButton",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "figmaFileKey": "QoLsm4KFD0ncjo9C1ycTVb",
   "figmaNodeId": "37:12833",
   "variants": {
@@ -146,5 +146,6 @@
     "conflictStrategy": "escalate"
   },
   "createdAt": "2026-04-06T00:00:00.000Z",
-  "updatedAt": "2026-04-07T03:48:32.528Z"
+  "updatedAt": "2026-04-07T03:48:32.528Z",
+  "semanticTokenFile": "tokens/semantic.css"
 }

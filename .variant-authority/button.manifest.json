@@ -1,6 +1,6 @@
 {
   "component": "Button",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "figmaFileKey": "LIVjw0uC7eSnQAeOETXiv0",
   "figmaNodeId": "1854:1776",
   "variants": {
@@ -155,5 +155,6 @@
     "conflictStrategy": "escalate"
   },
   "createdAt": "2026-04-01T00:00:00.000Z",
-  "updatedAt": "2026-04-06T19:13:00.450Z"
+  "updatedAt": "2026-04-06T19:13:00.450Z",
+  "semanticTokenFile": "tokens/semantic.css"
 }

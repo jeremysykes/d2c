@@ -5,6 +5,7 @@
   "gates": {
     "structural": {
       "passed": true,
+      "semanticTokensChecked": 12,
       "mismatches": []
     },
     "token": {

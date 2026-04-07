@@ -1,11 +1,11 @@
 {
-  "component": "PolarisButton",
+  "component": "Button",
   "viewport": "1440x900",
   "passed": true,
   "gates": {
     "structural": {
       "passed": true,
-      "semanticTokensChecked": 14,
+      "semanticTokensChecked": 15,
       "mismatches": []
     },
     "token": {
@@ -16,7 +16,7 @@
       "details": "14 tokens checked, 0 mismatches"
     }
   },
-  "figmaReference": ".d2c/diff-results/PolarisButton/figma-reference.png",
+  "figmaReference": ".d2c/diff-results/Button/figma-reference.png",
   "storybook": {
     "autoStarted": false,
     "url": "http://localhost:6006"
