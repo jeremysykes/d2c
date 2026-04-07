@@ -15,13 +15,13 @@ DESIGN  →  BUILD  →  VALIDATE  →  SHIP  →  MAINTAIN  →  RETIRE
 
 ### POC result
 
-Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three consume CSS custom properties from their respective token pipelines. No hardcoded hex values.
+Three Button components from IBM Carbon, GitHub Primer, and Shopify Polaris — each extracted from Figma, scaffolded with CVA variants, and validated against their design spec using deterministic structural comparison. All three use a two-layer token architecture: Style Dictionary primitives feed into a semantic token layer (`semantic.css`), and components consume semantic Tailwind utilities (`bg-cds-primary`, `bg-primer-primary`, `bg-polaris-primary`). No hardcoded hex values, no explicit `var()` references in component code.
 
-The structural validation gate caught a real bug during development: the Carbon Button had text vertically misaligned by 15px due to an incorrect flex direction. Pixel diffing with configurable thresholds had passed it. The structural gate — which extracts computed CSS and compares against manifest token values — blocked advancement until the layout was fixed.
+The structural validation gate caught real bugs during development: the Carbon Button had text vertically misaligned by 15px (incorrect flex direction) and an icon positioned adjacent to text instead of at the trailing edge (wrong flex layout). The gate — which discovers what to check by reading the component's `semantic.css` and comparing resolved token values against computed CSS — blocked advancement until the layout was fixed.
 
 | | IBM Carbon | GitHub Primer | Shopify Polaris |
 |---|---|---|---|
-| Primary color | `--cds-color-button-primary-background` | `--primer-color-button-primary-background` | `--polaris-color-button-primary-background` |
+| Semantic primary | `bg-cds-primary` | `bg-primer-primary` | `bg-polaris-primary` |
 | Variant model | `kind` (7) × `size` (7) × `type` (2) | `variant` (4) × `size` (3) | `variant` (3) × `tone` (2) |
 | Font | IBM Plex Sans | System stack | Inter |
 | CVA pattern | Simple variants | Simple variants | compoundVariants |
@@ -46,25 +46,44 @@ The structural validation gate caught a real bug during development: the Carbon 
 | Phase | What happens | Output |
 |---|---|---|
 | **Design** | Extract component from Figma. Seed variant manifest with variants, slots, token bindings, authority rules. | `.variant-authority/{component}.manifest.json` |
-| **Build** | Scaffold component code (React + CVA). Run token pipeline (DTCG → Style Dictionary → CSS custom properties). Generate Storybook stories. | Component code, generated tokens, story file |
+| **Build** | Scaffold component code (React + CVA). Run token pipeline (DTCG → Style Dictionary → semantic tokens → Tailwind utilities). Generate Storybook stories. | Component code, semantic.css, generated tokens, story file |
 | **Validate** | Structural gate: Playwright extracts computed CSS from rendered story, compares against manifest tokens. Token delta gate: manifest vs DTCG source. Both must pass. | `.d2c/diff-results/{component}-latest.json` |
 | **Ship** | Promote lifecycle status (alpha → beta → stable). Bump semver. Generate changelog. Write version and status back to Figma component description. | Changelog, updated manifest and Figma description |
 | **Maintain** | On-demand drift detection. Re-extract Figma state, compare against manifest, apply truth authority rules. Flag conflicts. | `.d2c/drift-report.json` |
 | **Retire** | Emit deprecation signal. Generate codemod and migration guide. Removal gate blocks deletion until consumer usage confirmed zero. | Migration guide, codemod, updated manifest |
 
-### Validation: structural comparison, not pixel diffing
+### Token architecture
 
-The validate phase uses deterministic structural comparison instead of pixel-level image diffing. Playwright navigates to the Storybook story, extracts computed CSS via `page.evaluate()`, and compares each value against the manifest token:
+Components use a two-layer token system modeled after production design system patterns:
 
-| Property | Extraction | Compared against |
+```
+DTCG source → Style Dictionary → primitives (--cds-color-button-primary-background)
+                                      ↓
+                               semantic.css (--cds-primary: var(--cds-color-button-primary-background))
+                                      ↓
+                               Tailwind @theme (--color-cds-primary: var(--cds-primary))
+                                      ↓
+                               CVA utilities (bg-cds-primary)
+```
+
+Each design system has its own `semantic.css` mapping standard token names to system-specific variables. Components reference semantic utilities — `bg-cds-primary`, `text-primer-primary-foreground`, `bg-polaris-critical` — never hardcoded values or explicit `var()` references. The semantic layer is the bridge that makes components readable and the validation gate component-agnostic.
+
+### Validation: component-agnostic structural gate
+
+The validate phase discovers what to check by reading the component's `semantic.css` file (referenced via `semanticTokenFile` in the variant manifest). Token naming conventions map to CSS properties:
+
+| Token pattern | CSS property | Target |
 |---|---|---|
-| Background color | `getComputedStyle(el).backgroundColor` | Manifest token (color) |
-| Font family | `getComputedStyle(el).fontFamily` | Manifest token (typography) |
-| Font size, weight, line-height, letter-spacing | `getComputedStyle(el).*` | Manifest tokens (typography) |
-| Padding, height | `getComputedStyle(el).*` | Manifest tokens (spacing) |
-| Vertical alignment | `getBoundingClientRect()` text center vs button center | Figma layout spec (±2px) |
+| `--{prefix}-{variant}` | `backgroundColor` | Root element |
+| `--{prefix}-{variant}-foreground` | `color` | Text element |
+| `--{prefix}-typography-font-family` | `fontFamily` | Root element |
+| `--{prefix}-typography-font-size` | `fontSize` | Root element |
+| `--{prefix}-spacing-height-{size}` | `height` | Root element |
+| `--{prefix}-spacing-padding-*` | `paddingLeft` | Root element |
 
-Values match or the gate fails. No configurable thresholds, no tolerance bands. Token delta is a separate gate with hard-zero tolerance — a token mismatch means the component is visually incorrect by definition.
+Playwright navigates to the Storybook story, extracts computed CSS via `page.evaluate()`, and compares each value against the resolved semantic token. Values match or the gate fails. A new component type needs only a `semantic.css` and a Storybook story — no gate configuration.
+
+Token delta is a separate gate with hard-zero tolerance — a token mismatch means the component is visually incorrect by definition.
 
 ### Design decisions
 
@@ -209,7 +228,7 @@ These are honest gaps, not planned features.
 
 **Live Storybook MCP integration.** Story files are generated; serving via `@storybook/addon-mcp` is documented but not yet wired.
 
-**Playwright structural validation wiring.** The structural comparison gate definitions are complete. Live wiring to Playwright `evaluate()` calls executes when the validate phase runs.
+**Additional component types.** The semantic token gate is component-agnostic — a Checkbox, Select, or Dialog needs only a `semantic.css` and a Storybook story. The POC demonstrates the pattern with Buttons; extending to other component types validates the architecture further.
 
 ---
 
